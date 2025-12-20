@@ -1,0 +1,54 @@
+import 'package:eyego_task/consts.dart';
+import 'package:eyego_task/core/utils/app_router.dart';
+import 'package:eyego_task/core/utils/styles.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+class InitScreenBar extends StatelessWidget {
+  const InitScreenBar({super.key, required this.width});
+
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        GestureDetector(
+          onTap: () {
+            GoRouter.of(context).push(AppRouter.kLoginRoute);
+          },
+          child: Container(
+            height: 50,
+            width: width * 0.4,
+            decoration: BoxDecoration(
+              color: kMainColor,
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Center(
+              child: Text(
+                "Login",
+                style: Styles.textStyle16.copyWith(color: Colors.white),
+              ),
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            GoRouter.of(context).push(AppRouter.kSignupRoute);
+          },
+          child: Container(
+            height: 50,
+            width: width * 0.33,
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
+            child: Center(
+              child: Text(
+                "SignUp",
+                style: Styles.textStyle16.copyWith(color: kMainColor),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
