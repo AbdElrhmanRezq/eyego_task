@@ -7,6 +7,10 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: SimpleAppBar(), body: SignupScreenBody());
+    return Scaffold(
+      appBar: SimpleAppBar(),
+      body: SignupScreenBody(),
+      resizeToAvoidBottomInset: true,
+    );
   }
 }
