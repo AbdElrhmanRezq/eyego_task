@@ -1,0 +1,66 @@
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:eyego_task/core/errors/failures.dart';
+import 'package:eyego_task/core/utils/api_service.dart';
+import 'package:eyego_task/core/utils/service_locator.dart';
+import 'package:eyego_task/features/home/data/models/article_model.dart';
+import 'package:eyego_task/features/home/data/repo/news_repo.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+class NewsRepoImpl implements NewsRepo {
+  final String apiKey = dotenv.env['API_KEY']!;
+  final ApiService apiService = getIt.get<ApiService>();
+  @override
+  Future<Either<Failure, List<ArticleModel>>> getEverything({
+    int limit = 10,
+    int offset = 0,
+    String q = '',
+    String lang = 'en',
+    String sortBy = 'popularity',
+  }) async {
+    try {
+      String endpoint =
+          'everything?q=$q&language=$lang&sortBy=$sortBy&pageSize=$limit&page=$offset&apiKey=$apiKey';
+      final Map<String, dynamic> response = await apiService.get(
+        endpoint: endpoint,
+      );
+      final articlesJson = response['articles'] as List<dynamic>;
+      final List<ArticleModel> articles = articlesJson
+          .map((articleJson) => ArticleModel.fromJson(articleJson))
+          .toList();
+      return right(articles);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<ArticleModel>>> getHeadlines({
+    int limit = 10,
+    int offset = 0,
+    String country = 'eg',
+    String category = '',
+  }) async {
+    try {
+      String eCategory = category == '' ? '' : '&category=$category';
+      String endpoint =
+          'top-headlines?country=$country$eCategory&pageSize=$limit&page=$offset&apiKey=$apiKey';
+      final Map<String, dynamic> response = await apiService.get(
+        endpoint: endpoint,
+      );
+      final articlesJson = response['articles'] as List<dynamic>;
+      final List<ArticleModel> articles = articlesJson
+          .map((articleJson) => ArticleModel.fromJson(articleJson))
+          .toList();
+      return right(articles);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
+}
