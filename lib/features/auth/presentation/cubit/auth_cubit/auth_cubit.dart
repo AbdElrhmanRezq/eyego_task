@@ -9,11 +9,12 @@ import 'package:meta/meta.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitial());
+  AuthCubit(this.auth) : super(AuthInitial());
 
-  final AuthRepoImpl auth = getIt.get<AuthRepoImpl>();
+  final AuthRepoImpl auth;
 
   Future<void> login(String email, String password) async {
+    emit(AuthLoading());
     final Either<Failure, UserCredential> response = await auth.login(
       email,
       password,
@@ -25,6 +26,8 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> signup(String email, String password) async {
+    emit(AuthLoading());
+
     final Either<Failure, UserCredential> response = await auth.signup(
       email,
       password,
@@ -36,6 +39,8 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> signout() async {
+    emit(AuthLoading());
+
     final Either<Failure, void> response = await auth.signout();
     response.fold(
       (l) => emit(AuthError(l.message)),
@@ -43,8 +48,10 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
-  Future<void> resetPassword() async {
-    final Either<Failure, void> response = await auth.signout();
+  Future<void> resetPassword(String email) async {
+    emit(AuthLoading());
+
+    final Either<Failure, void> response = await auth.resetPassword(email);
     response.fold((l) => emit(AuthError(l.message)), (r) => emit(AuthReset()));
   }
 }
