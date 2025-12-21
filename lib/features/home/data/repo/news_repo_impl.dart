@@ -13,14 +13,14 @@ class NewsRepoImpl implements NewsRepo {
   @override
   Future<Either<Failure, List<ArticleModel>>> getEverything({
     int limit = 10,
-    int offset = 0,
+    int page = 1,
     String q = '',
     String lang = 'en',
     String sortBy = 'popularity',
   }) async {
     try {
       String endpoint =
-          'everything?q=$q&language=$lang&sortBy=$sortBy&pageSize=$limit&page=$offset&apiKey=$apiKey';
+          'everything?q=$q&language=$lang&sortBy=$sortBy&pageSize=$limit&page=$page&apiKey=$apiKey';
       final Map<String, dynamic> response = await apiService.get(
         endpoint: endpoint,
       );
@@ -40,14 +40,14 @@ class NewsRepoImpl implements NewsRepo {
   @override
   Future<Either<Failure, List<ArticleModel>>> getHeadlines({
     int limit = 10,
-    int offset = 0,
-    String country = 'eg',
+    int page = 1,
+    String country = 'us',
     String category = '',
   }) async {
     try {
       String eCategory = category == '' ? '' : '&category=$category';
       String endpoint =
-          'top-headlines?country=$country$eCategory&pageSize=$limit&page=$offset&apiKey=$apiKey';
+          'top-headlines?country=$country$eCategory&pageSize=$limit&page=$page&apiKey=$apiKey';
       final Map<String, dynamic> response = await apiService.get(
         endpoint: endpoint,
       );
