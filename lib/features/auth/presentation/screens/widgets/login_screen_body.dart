@@ -109,9 +109,9 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                         context,
                       ).showSnackBar(SnackBar(content: Text(state.message)));
                     } else if (state is AuthSuccess) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(state.user.user?.email ?? ' ')),
-                      );
+                      GoRouter.of(
+                        context,
+                      ).pushReplacement(AppRouter.kHomeRoute);
                     }
                   },
                 ),
