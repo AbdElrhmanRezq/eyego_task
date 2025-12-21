@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class Failure {
   final String message;
@@ -45,6 +46,52 @@ class ServerFailure extends Failure {
         }
       default:
         return ServerFailure("Unexpected error occurred");
+    }
+  }
+}
+
+class FirebaseFailure extends Failure {
+  const FirebaseFailure(super.message);
+
+  factory FirebaseFailure.fromFirebaseAuthException(FirebaseAuthException e) {
+    switch (e.code) {
+      case 'invalid-email':
+        return const FirebaseFailure('The email address is not valid.');
+
+      case 'user-disabled':
+        return const FirebaseFailure('This user account has been disabled.');
+
+      case 'user-not-found':
+        return const FirebaseFailure('No user found for this email.');
+
+      case 'wrong-password':
+        return const FirebaseFailure('Incorrect password.');
+
+      case 'email-already-in-use':
+        return const FirebaseFailure(
+          'An account already exists with this email.',
+        );
+
+      case 'operation-not-allowed':
+        return const FirebaseFailure('Operation not allowed.');
+
+      case 'weak-password':
+        return const FirebaseFailure('The password is too weak.');
+
+      case 'too-many-requests':
+        return const FirebaseFailure(
+          'Too many attempts. Please try again later.',
+        );
+
+      case 'network-request-failed':
+        return const FirebaseFailure(
+          'Network error. Please check your internet connection.',
+        );
+
+      default:
+        return FirebaseFailure(
+          e.message ?? 'An unexpected Firebase error occurred.',
+        );
     }
   }
 }
