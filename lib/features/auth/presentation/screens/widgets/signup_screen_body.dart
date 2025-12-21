@@ -32,74 +32,78 @@ class _SignupScreenBodyState extends State<SignupScreenBody> {
     return Form(
       key: _key,
       child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.asset(AssetsData.person1, width: 250, height: 250),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Let's Start",
-                      style: TextStyle(
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Let's Start",
+                        style: TextStyle(
+                          fontSize: 50,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  CustomTextFormField(
-                    hintText: "Email Address",
-                    icon: Icons.email,
-                    controller: emailController,
-                    validator: emptyValidator("email"),
-                  ),
+                    SizedBox(height: 20),
+                    CustomTextFormField(
+                      hintText: "Email Address",
+                      icon: Icons.email,
+                      controller: emailController,
+                      validator: emptyValidator("email"),
+                    ),
 
-                  Divider(color: Colors.black),
-                  CustomTextFormField(
-                    hintText: "Password",
-                    icon: Icons.lock,
-                    controller: passwordController,
-                    validator: emptyValidator("password"),
-                  ),
-                  SizedBox(height: 20),
-                  BlocConsumer<AuthCubit, AuthState>(
-                    builder: (context, state) {
-                      if (state is AuthLoading) {
-                        return Center(
-                          child: CircularProgressIndicator(color: kMainColor),
-                        );
-                      } else {
-                        return AppButton(
-                          text: "Login",
-                          onPressed: () {
-                            if (_key.currentState?.validate() ?? false) {
-                              context.read<AuthCubit>().signup(
-                                emailController.text,
-                                passwordController.text,
-                              );
-                            }
-                          },
-                        );
-                      }
-                    },
-                    listener: (BuildContext context, AuthState state) {
-                      if (state is AuthError) {
-                        ScaffoldMessenger.of(
-                          context,
-                        ).showSnackBar(SnackBar(content: Text(state.message)));
-                      }
-                    },
-                  ),
-                ],
+                    Divider(color: Colors.black),
+                    CustomTextFormField(
+                      hintText: "Password",
+                      icon: Icons.lock,
+                      controller: passwordController,
+                      validator: emptyValidator("password"),
+                    ),
+                    SizedBox(height: 20),
+                    BlocConsumer<AuthCubit, AuthState>(
+                      builder: (context, state) {
+                        if (state is AuthLoading) {
+                          return Center(
+                            child: CircularProgressIndicator(color: kMainColor),
+                          );
+                        } else {
+                          return AppButton(
+                            text: "Login",
+                            onPressed: () {
+                              if (_key.currentState?.validate() ?? false) {
+                                context.read<AuthCubit>().signup(
+                                  emailController.text,
+                                  passwordController.text,
+                                );
+                              }
+                            },
+                          );
+                        }
+                      },
+                      listener: (BuildContext context, AuthState state) {
+                        if (state is AuthError) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(state.message)),
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

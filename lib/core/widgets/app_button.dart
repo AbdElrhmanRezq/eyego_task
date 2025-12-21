@@ -29,7 +29,7 @@ class AppButton extends StatelessWidget {
 
         child: Text(
           text,
-          style: Styles.textStyle14.copyWith(color: Colors.white),
+          style: Styles.textStyle14.copyWith(color: Colors.black),
         ),
       ),
     );

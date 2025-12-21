@@ -16,16 +16,7 @@ class InitScreenBody extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: Image.asset(
-              AssetsData.person2,
-              width: 300,
-              height: 300,
-              alignment: Alignment.bottomLeft,
-            ),
-          ),
-
+          //Image.asset('assets/images/init.gif', width: 150, height: 150),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 50),
             child: Column(

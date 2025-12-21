@@ -30,64 +30,73 @@ class _ResetPasswordScreenBodyState extends State<ResetPasswordScreenBody> {
     return Form(
       key: _key,
       child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.asset(AssetsData.person1, width: 250, height: 250),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: Column(
+                  children: [
+                    Text(
+                      "Reset Password",
+                      style: TextStyle(
+                        fontSize: 50,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.start,
+                    ),
+                    SizedBox(height: 20),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: Column(
-                children: [
-                  Text(
-                    "Reset Password",
-                    style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.start,
-                  ),
-                  CustomTextFormField(
-                    hintText: "Email Address",
-                    icon: Icons.email,
-                    controller: emailController,
-                    validator: emptyValidator("Email Address"),
-                  ),
+                    CustomTextFormField(
+                      hintText: "Email Address",
+                      icon: Icons.email,
+                      controller: emailController,
+                      validator: emptyValidator("Email Address"),
+                    ),
 
-                  SizedBox(height: 20),
-                  BlocConsumer<AuthCubit, AuthState>(
-                    builder: (context, state) {
-                      if (state is AuthLoading) {
-                        return Center(
-                          child: CircularProgressIndicator(color: kMainColor),
-                        );
-                      } else if (state is AuthReset) {
-                        return Text(
-                          "We sent a link to reset. Check your email",
-                        );
-                      } else {
-                        return AppButton(
-                          text: "Reset Password",
-                          onPressed: () {
-                            if (_key.currentState?.validate() ?? false) {
-                              context.read<AuthCubit>().resetPassword(
-                                emailController.text,
-                              );
-                            }
-                          },
-                        );
-                      }
-                    },
-                    listener: (BuildContext context, AuthState state) {
-                      if (state is AuthError) {
-                        ScaffoldMessenger.of(
-                          context,
-                        ).showSnackBar(SnackBar(content: Text(state.message)));
-                      }
-                    },
-                  ),
-                ],
+                    SizedBox(height: 20),
+                    BlocConsumer<AuthCubit, AuthState>(
+                      builder: (context, state) {
+                        if (state is AuthLoading) {
+                          return Center(
+                            child: CircularProgressIndicator(color: kMainColor),
+                          );
+                        } else if (state is AuthReset) {
+                          return Text(
+                            "We sent a link to reset. Check your email",
+                          );
+                        } else {
+                          return AppButton(
+                            text: "Reset Password",
+                            onPressed: () {
+                              if (_key.currentState?.validate() ?? false) {
+                                context.read<AuthCubit>().resetPassword(
+                                  emailController.text,
+                                );
+                              }
+                            },
+                          );
+                        }
+                      },
+                      listener: (BuildContext context, AuthState state) {
+                        if (state is AuthError) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(state.message)),
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

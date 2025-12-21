@@ -1,3 +1,4 @@
+import 'package:eyego_task/consts.dart';
 import 'package:eyego_task/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -9,12 +10,12 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
+      backgroundColor: kBackground,
       leading: IconButton(
         onPressed: () {
           GoRouter.of(context).pop();
         },
-        icon: Icon(Icons.arrow_back_ios_new),
+        icon: Icon(Icons.arrow_back_ios_new, color: kMainColor),
       ),
       title: title != null
           ? Text(

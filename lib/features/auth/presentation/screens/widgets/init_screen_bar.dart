@@ -27,7 +27,7 @@ class InitScreenBar extends StatelessWidget {
             child: Center(
               child: Text(
                 "Login",
-                style: Styles.textStyle16.copyWith(color: Colors.white),
+                style: Styles.textStyle16.copyWith(color: Colors.black),
               ),
             ),
           ),
