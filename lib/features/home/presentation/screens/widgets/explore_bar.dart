@@ -1,6 +1,8 @@
 import 'package:eyego_task/consts.dart';
+import 'package:eyego_task/core/utils/app_router.dart';
 import 'package:eyego_task/core/utils/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ExploreBar extends StatelessWidget {
   const ExploreBar({super.key});
@@ -17,7 +19,9 @@ class ExploreBar extends StatelessWidget {
         Row(
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                GoRouter.of(context).push(AppRouter.kProfileRoute);
+              },
               icon: Container(
                 width: 35,
                 height: 35,
@@ -32,7 +36,9 @@ class ExploreBar extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                GoRouter.of(context).push(AppRouter.kSearchRoute);
+              },
               icon: Container(
                 width: 35,
                 height: 35,
