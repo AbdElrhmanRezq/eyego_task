@@ -10,7 +10,8 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: kBackground,
+      scrolledUnderElevation: 0,
+      backgroundColor: Colors.transparent,
       leading: IconButton(
         onPressed: () {
           GoRouter.of(context).pop();
