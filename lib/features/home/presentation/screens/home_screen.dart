@@ -1,3 +1,4 @@
+import 'package:eyego_task/consts.dart';
 import 'package:eyego_task/core/utils/service_locator.dart';
 import 'package:eyego_task/features/home/presentation/screens/widgets/home_screen_body.dart';
 import 'package:firebase_auth/firebase_auth.dart';

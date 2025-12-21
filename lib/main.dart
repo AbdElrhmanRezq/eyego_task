@@ -32,7 +32,7 @@ class Eyego extends StatelessWidget {
       ],
       child: MaterialApp.router(
         routerConfig: AppRouter.router,
-        title: "Eyego",
+        title: "Briefly",
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           textTheme: GoogleFonts.karlaTextTheme(),
