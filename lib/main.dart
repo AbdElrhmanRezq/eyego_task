@@ -3,6 +3,7 @@ import 'package:eyego_task/core/utils/app_router.dart';
 import 'package:eyego_task/core/utils/service_locator.dart';
 import 'package:eyego_task/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:eyego_task/features/auth/presentation/cubit/auth_cubit/auth_cubit.dart';
+import 'package:eyego_task/features/home/presentation/cubit/news_cubit/news_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -12,7 +13,7 @@ import 'firebase_options.dart';
 
 void main(List<String> args) async {
   await dotenv.load(fileName: ".env");
-  dotenv.env['API_KEY'];
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   setup();
@@ -27,6 +28,7 @@ class Eyego extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => AuthCubit(getIt.get<AuthRepoImpl>())),
+        BlocProvider(create: (context) => NewsCubit()),
       ],
       child: MaterialApp.router(
         routerConfig: AppRouter.router,
