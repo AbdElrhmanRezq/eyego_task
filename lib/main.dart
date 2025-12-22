@@ -40,6 +40,7 @@ class Eyego extends StatelessWidget {
           textTheme: GoogleFonts.karlaTextTheme(),
           scaffoldBackgroundColor: kBackground,
           primaryColor: kMainColor,
+          progressIndicatorTheme: ProgressIndicatorThemeData(color: kMainColor),
           textSelectionTheme: TextSelectionThemeData(
             cursorColor: kMainColor,
             selectionHandleColor: kMainColor,

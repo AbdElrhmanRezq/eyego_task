@@ -29,7 +29,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
       final state = cubit.state;
       if (state is NewsLoaded &&
           state.hasMore &&
-          !cubit.isFetchingMore &&
+          !state.isLoadingMore &&
           _scrollController.position.pixels >=
               _scrollController.position.maxScrollExtent - 200) {
         cubit.fetchHeadlines(loadMore: true);

@@ -31,6 +31,8 @@ class ServerFailure extends Failure {
                 return ServerFailure("Unauthorized request");
               case 403:
                 return ServerFailure("Forbidden request");
+              case 429:
+                return ServerFailure("You have ran out of requests quota");
               case 404:
                 return ServerFailure("Not found");
               case 500:
