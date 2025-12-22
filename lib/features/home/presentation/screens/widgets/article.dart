@@ -1,9 +1,11 @@
 import 'package:eyego_task/consts.dart';
+import 'package:eyego_task/core/utils/app_router.dart';
 import 'package:eyego_task/core/utils/functions/url_launcher.dart';
 import 'package:eyego_task/core/utils/styles.dart';
 import 'package:eyego_task/features/home/data/models/article_model.dart';
 import 'package:eyego_task/features/home/presentation/screens/widgets/article_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class Article extends StatelessWidget {
   const Article({
@@ -23,7 +25,9 @@ class Article extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
-
+        onTap: () {
+          GoRouter.of(context).push(AppRouter.kArticleRoute, extra: article);
+        },
         title: Stack(
           children: [
             ArticleImage(width: width, height: height, article: article),
