@@ -23,7 +23,7 @@ class NewsCubit extends Cubit<NewsState> {
 
   Future<void> fetchHeadlines({
     bool loadMore = false,
-    String category = 'all',
+    String category = 'general',
   }) async {
     if (isFetchingMore) return;
     if (loadMore && !hasMore) return;

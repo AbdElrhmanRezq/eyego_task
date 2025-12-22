@@ -3,6 +3,7 @@ import 'package:eyego_task/core/utils/styles.dart';
 import 'package:eyego_task/features/auth/presentation/screens/widgets/text_field.dart';
 import 'package:eyego_task/features/home/presentation/cubit/search_cubit/search_cubit.dart';
 import 'package:eyego_task/features/home/presentation/screens/widgets/article.dart';
+import 'package:eyego_task/features/home/presentation/screens/widgets/filter_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,6 +16,8 @@ class SearchScreenBody extends StatefulWidget {
 
 class _SearchScreenBodyState extends State<SearchScreenBody> {
   TextEditingController searchController = TextEditingController();
+  String language = 'en';
+  String sortBy = 'relevancy';
 
   @override
   void initState() {
@@ -32,6 +35,24 @@ class _SearchScreenBodyState extends State<SearchScreenBody> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+
+    List<String> langs = [
+      "ar",
+      "de",
+      "en",
+      "es",
+      "fr",
+      "he",
+      "it",
+      "nl",
+      "no",
+      "pt",
+      "ru",
+      "sv",
+      "ud",
+      "zh",
+    ];
+    List<String> sorts = ['relevancy', 'popularity', 'publishedAt'];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: CustomScrollView(
@@ -45,6 +66,42 @@ class _SearchScreenBodyState extends State<SearchScreenBody> {
               onChanged: (value) {
                 (context).read<SearchCubit>().fetchSearchedNews(text: value);
               },
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                FilterRow(
+                  onChanged: (value) {
+                    setState(() {
+                      language = value!;
+                      (context).read<SearchCubit>().fetchSearchedNews(
+                        text: value,
+                        selectedLang: language,
+                        selectedSort: sortBy,
+                      );
+                    });
+                  },
+                  selectedCategory: language,
+                  items: langs,
+                  type: 'Language',
+                ),
+                FilterRow(
+                  onChanged: (value) {
+                    setState(() {
+                      sortBy = value!;
+                      (context).read<SearchCubit>().fetchSearchedNews(
+                        text: value,
+                        selectedLang: language,
+                        selectedSort: sortBy,
+                      );
+                    });
+                  },
+                  selectedCategory: sortBy,
+                  items: sorts,
+                  type: 'Sort By',
+                ),
+              ],
             ),
           ),
           BlocBuilder<SearchCubit, SearchState>(

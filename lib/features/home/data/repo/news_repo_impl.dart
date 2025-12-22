@@ -16,7 +16,7 @@ class NewsRepoImpl implements NewsRepo {
     int page = 1,
     String q = '',
     String lang = 'en',
-    String sortBy = 'popularity',
+    String sortBy = 'relevancy',
   }) async {
     try {
       String endpoint =
@@ -24,6 +24,8 @@ class NewsRepoImpl implements NewsRepo {
       final Map<String, dynamic> response = await apiService.get(
         endpoint: endpoint,
       );
+      print("Endpoint===========================$endpoint");
+
       final articlesJson = response['articles'] as List<dynamic>;
       final List<ArticleModel> articles = articlesJson
           .map((articleJson) => ArticleModel.fromJson(articleJson))
@@ -42,17 +44,11 @@ class NewsRepoImpl implements NewsRepo {
     int limit = 10,
     int page = 1,
     String country = 'us',
-    String category = '',
+    String category = 'general',
   }) async {
     try {
-      String eCategory = category == ''
-          ? ''
-          : category == 'all'
-          ? ''
-          : '&category=$category';
       String endpoint =
-          'top-headlines?country=$country$eCategory&pageSize=$limit&page=$page&apiKey=$apiKey';
-      print("Endpoint===========================$endpoint");
+          'top-headlines?country=$country&category=$category&pageSize=$limit&page=$page&apiKey=$apiKey';
       final Map<String, dynamic> response = await apiService.get(
         endpoint: endpoint,
       );

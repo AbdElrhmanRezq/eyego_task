@@ -7,7 +7,7 @@ abstract class NewsRepo {
     int limit = 10,
     int page = 1,
     String country = 'eg',
-    String category = '',
+    String category = 'general',
   });
   Future<Either<Failure, List<ArticleModel>>> getEverything({
     int limit = 10,

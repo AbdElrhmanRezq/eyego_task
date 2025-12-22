@@ -9,11 +9,21 @@ part 'search_state.dart';
 class SearchCubit extends Cubit<SearchState> {
   SearchCubit() : super(SearchInitial());
   final NewsRepo newsRepo = getIt.get<NewsRepoImpl>();
-  Future<void> fetchSearchedNews({required String text}) async {
-    final result = await newsRepo.getEverything(q: text);
-    print("===========================================");
+  String sortByValue = 'relevancy';
+  String languageValue = 'en';
 
-    print(text);
+  Future<void> fetchSearchedNews({
+    required String text,
+    String selectedSort = 'relevancy',
+    String selectedLang = 'en',
+  }) async {
+    sortByValue = selectedSort;
+    languageValue = selectedLang;
+    final result = await newsRepo.getEverything(
+      q: text,
+      lang: languageValue,
+      sortBy: sortByValue,
+    );
     result.fold(
       (failure) {
         emit(SearchError(failure.message));

@@ -4,6 +4,7 @@ import 'package:eyego_task/features/home/data/models/article_model.dart';
 import 'package:eyego_task/features/home/presentation/cubit/news_cubit/news_cubit.dart';
 import 'package:eyego_task/features/home/presentation/screens/widgets/article_image.dart';
 import 'package:eyego_task/features/home/presentation/screens/widgets/explore_bar.dart';
+import 'package:eyego_task/features/home/presentation/screens/widgets/filter_row.dart';
 import 'package:eyego_task/features/home/presentation/screens/widgets/news_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,6 +47,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+
     final List<String> categories = [
       "business",
       "entertainment",
@@ -68,41 +70,17 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 ExploreBar(),
                 Divider(thickness: 2, color: kMainColor),
                 SizedBox(height: 10),
-                Row(
-                  children: [
-                    Text("Showing: ", style: Styles.textStyle20),
-                    DropdownButton<String>(
-                      value: selectedCategory,
-                      style: Styles.textStyle20,
-                      iconEnabledColor: kMainColor,
-                      isDense: true,
-                      underline: SizedBox(),
-                      items: categories
-                          .map(
-                            (c) => DropdownMenuItem<String>(
-                              value: c,
-                              child: Text(
-                                c[0].toUpperCase() + c.substring(1),
-                                style: Styles.textStyle20.copyWith(
-                                  color: selectedCategory == c
-                                      ? kMainColor
-                                      : Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          )
-                          .toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          selectedCategory = value!;
-                          (context).read<NewsCubit>().fetchHeadlines(
-                            category: selectedCategory,
-                          );
-                        });
-                      },
-                    ),
-                  ],
+                FilterRow(
+                  items: categories,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedCategory = value!;
+                      (context).read<NewsCubit>().fetchHeadlines(
+                        category: selectedCategory,
+                      );
+                    });
+                  },
+                  selectedCategory: selectedCategory,
                 ),
               ],
             ),
