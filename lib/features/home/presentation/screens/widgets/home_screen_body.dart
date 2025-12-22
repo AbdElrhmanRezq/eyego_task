@@ -17,7 +17,7 @@ class HomeScreenBody extends StatefulWidget {
 
 class _HomeScreenBodyState extends State<HomeScreenBody> {
   final ScrollController _scrollController = ScrollController();
-
+  String selectedCategory = 'general';
   @override
   void initState() {
     super.initState();
@@ -46,6 +46,15 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    final List<String> categories = [
+      "business",
+      "entertainment",
+      "general",
+      "health",
+      "science",
+      "sports",
+      "technology",
+    ];
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -59,6 +68,42 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 ExploreBar(),
                 Divider(thickness: 2, color: kMainColor),
                 SizedBox(height: 10),
+                Row(
+                  children: [
+                    Text("Showing: ", style: Styles.textStyle20),
+                    DropdownButton<String>(
+                      value: selectedCategory,
+                      style: Styles.textStyle20,
+                      iconEnabledColor: kMainColor,
+                      isDense: true,
+                      underline: SizedBox(),
+                      items: categories
+                          .map(
+                            (c) => DropdownMenuItem<String>(
+                              value: c,
+                              child: Text(
+                                c[0].toUpperCase() + c.substring(1),
+                                style: Styles.textStyle20.copyWith(
+                                  color: selectedCategory == c
+                                      ? kMainColor
+                                      : Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          selectedCategory = value!;
+                          (context).read<NewsCubit>().fetchHeadlines(
+                            category: selectedCategory,
+                          );
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

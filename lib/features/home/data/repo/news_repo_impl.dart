@@ -45,9 +45,14 @@ class NewsRepoImpl implements NewsRepo {
     String category = '',
   }) async {
     try {
-      String eCategory = category == '' ? '' : '&category=$category';
+      String eCategory = category == ''
+          ? ''
+          : category == 'all'
+          ? ''
+          : '&category=$category';
       String endpoint =
           'top-headlines?country=$country$eCategory&pageSize=$limit&page=$page&apiKey=$apiKey';
+      print("Endpoint===========================$endpoint");
       final Map<String, dynamic> response = await apiService.get(
         endpoint: endpoint,
       );

@@ -3,6 +3,7 @@ import 'package:eyego_task/core/utils/service_locator.dart';
 import 'package:eyego_task/features/home/data/models/article_model.dart';
 import 'package:eyego_task/features/home/data/repo/news_repo.dart';
 import 'package:eyego_task/features/home/data/repo/news_repo_impl.dart';
+import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 
 part 'news_state.dart';
@@ -18,8 +19,12 @@ class NewsCubit extends Cubit<NewsState> {
   final List<ArticleModel> articles = [];
   bool isFetchingMore = false;
   bool hasMore = true;
+  String currentCategory = 'general';
 
-  Future<void> fetchHeadlines({bool loadMore = false}) async {
+  Future<void> fetchHeadlines({
+    bool loadMore = false,
+    String category = 'all',
+  }) async {
     if (isFetchingMore) return;
     if (loadMore && !hasMore) return;
 
@@ -31,8 +36,17 @@ class NewsCubit extends Cubit<NewsState> {
       articles.clear();
       hasMore = true;
     }
-
-    final result = await newsRepo.getHeadlines(page: page);
+    if (category != null && category != currentCategory) {
+      currentCategory = category;
+      page = 1;
+      hasMore = true;
+      articles.clear();
+      emit(NewsLoading());
+    }
+    final result = await newsRepo.getHeadlines(
+      page: page,
+      category: currentCategory,
+    );
 
     result.fold(
       (failure) {
