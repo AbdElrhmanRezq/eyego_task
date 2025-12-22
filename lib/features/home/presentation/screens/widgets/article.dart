@@ -1,4 +1,5 @@
 import 'package:eyego_task/consts.dart';
+import 'package:eyego_task/core/utils/functions/url_launcher.dart';
 import 'package:eyego_task/core/utils/styles.dart';
 import 'package:eyego_task/features/home/data/models/article_model.dart';
 import 'package:eyego_task/features/home/presentation/screens/widgets/article_image.dart';
@@ -56,7 +57,15 @@ class Article extends StatelessWidget {
               right: 8,
               top: 4,
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (article.url != null) {
+                    launchExternalUrl(article.url!);
+                  } else {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text("No URL found")));
+                  }
+                },
                 icon: Icon(Icons.open_in_new, color: kMainColor),
               ),
             ),
