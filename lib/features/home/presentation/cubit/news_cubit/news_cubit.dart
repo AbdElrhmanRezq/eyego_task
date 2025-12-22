@@ -24,8 +24,7 @@ class NewsCubit extends Cubit<NewsState> {
     bool loadMore = false,
     String category = 'general',
   }) async {
-    if (loadMore && isFetchingMore) return;
-    if (loadMore && !hasMore) return;
+    if (isFetchingMore) return;
 
     if (category != currentCategory) {
       currentCategory = category;
@@ -36,16 +35,6 @@ class NewsCubit extends Cubit<NewsState> {
     }
 
     isFetchingMore = true;
-
-    if (loadMore) {
-      emit(
-        NewsLoaded(
-          articles: List.unmodifiable(articles),
-          hasMore: hasMore,
-          isLoadingMore: true,
-        ),
-      );
-    }
 
     final result = await newsRepo.getHeadlines(
       page: page,
@@ -66,7 +55,7 @@ class NewsCubit extends Cubit<NewsState> {
 
         emit(
           NewsLoaded(
-            articles: List.unmodifiable(articles),
+            articles: articles,
             hasMore: hasMore,
             isLoadingMore: false,
           ),

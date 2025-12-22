@@ -14,6 +14,7 @@ class NewsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NewsCubit, NewsState>(
       builder: (context, state) {
+        final articles = (context).read<NewsCubit>().articles;
         if (state is NewsLoading) {
           return const SliverFillRemaining(
             child: Center(child: CircularProgressIndicator()),
@@ -30,29 +31,17 @@ class NewsList extends StatelessWidget {
 
         if (state is NewsLoaded) {
           return SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                if (index < state.articles.length) {
-                  final article = state.articles[index];
+            delegate: SliverChildBuilderDelegate((context, index) {
+              if (index < articles.length) {
+                final article = articles[index];
 
-                  return Article(
-                    width: width,
-                    height: height,
-                    article: article,
-                  );
-                }
+                return Article(width: width, height: height, article: article);
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
 
-                if (state.isLoadingMore && index == state.articles.length) {
-                  return const Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Center(child: CircularProgressIndicator()),
-                  );
-                }
-
-                return const SizedBox.shrink();
-              },
-              childCount: state.articles.length + (state.isLoadingMore ? 1 : 0),
-            ),
+              return const SizedBox.shrink();
+            }, childCount: articles.length + 1),
           );
         }
 

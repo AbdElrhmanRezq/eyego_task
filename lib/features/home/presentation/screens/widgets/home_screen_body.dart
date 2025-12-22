@@ -17,29 +17,26 @@ class HomeScreenBody extends StatefulWidget {
 }
 
 class _HomeScreenBodyState extends State<HomeScreenBody> {
-  final ScrollController _scrollController = ScrollController();
+  final ScrollController controller = ScrollController();
   String selectedCategory = 'general';
   @override
   void initState() {
     super.initState();
     context.read<NewsCubit>().fetchHeadlines();
 
-    _scrollController.addListener(() {
+    controller.addListener(() {
       final cubit = context.read<NewsCubit>();
-      final state = cubit.state;
-      if (state is NewsLoaded &&
-          state.hasMore &&
-          !state.isLoadingMore &&
-          _scrollController.position.pixels >=
-              _scrollController.position.maxScrollExtent - 200) {
-        cubit.fetchHeadlines(loadMore: true);
+      if (controller.position.maxScrollExtent == controller.offset) {
+        setState(() {
+          cubit.fetchHeadlines(loadMore: true);
+        });
       }
     });
   }
 
   @override
   void dispose() {
-    _scrollController.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -61,7 +58,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: CustomScrollView(
-        controller: _scrollController,
+        controller: controller,
         slivers: [
           SliverToBoxAdapter(
             child: Column(
