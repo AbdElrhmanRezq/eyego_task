@@ -9,12 +9,14 @@ class CustomTextFormField extends StatelessWidget {
     required this.icon,
     required this.validator,
     required this.controller,
+    this.onChanged,
   });
 
   final String hintText;
   final IconData icon;
   final String? Function(String? p1)? validator;
   final TextEditingController? controller;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class CustomTextFormField extends StatelessWidget {
       validator: validator,
       controller: controller,
       obscureText: hintText == 'Password',
+      onChanged: onChanged,
     );
   }
 }

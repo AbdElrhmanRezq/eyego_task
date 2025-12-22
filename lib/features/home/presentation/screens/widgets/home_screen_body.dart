@@ -58,6 +58,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
               children: [
                 ExploreBar(),
                 Divider(thickness: 2, color: kMainColor),
+                SizedBox(height: 10),
               ],
             ),
           ),

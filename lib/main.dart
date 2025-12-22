@@ -4,6 +4,7 @@ import 'package:eyego_task/core/utils/service_locator.dart';
 import 'package:eyego_task/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:eyego_task/features/auth/presentation/cubit/auth_cubit/auth_cubit.dart';
 import 'package:eyego_task/features/home/presentation/cubit/news_cubit/news_cubit.dart';
+import 'package:eyego_task/features/home/presentation/cubit/search_cubit/search_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -29,6 +30,7 @@ class Eyego extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => AuthCubit(getIt.get<AuthRepoImpl>())),
         BlocProvider(create: (context) => NewsCubit()),
+        BlocProvider(create: (context) => SearchCubit()),
       ],
       child: MaterialApp.router(
         routerConfig: AppRouter.router,
