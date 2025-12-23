@@ -10,18 +10,24 @@ class InitScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     return SizedBox(
       width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          //Image.asset('assets/images/init.gif', width: 150, height: 150),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 50),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Image.asset(
+                  AssetsData.logo,
+                  width: width * 0.3,
+                  height: height * 0.3,
+                ),
                 Text(
                   "Read the newest news",
                   style: Styles.textStyle20,

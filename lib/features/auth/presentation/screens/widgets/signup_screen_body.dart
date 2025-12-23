@@ -81,7 +81,7 @@ class _SignupScreenBodyState extends State<SignupScreenBody> {
                           );
                         } else {
                           return AppButton(
-                            text: "Login",
+                            text: "Signup",
                             onPressed: () {
                               if (_key.currentState?.validate() ?? false) {
                                 context.read<AuthCubit>().signup(
