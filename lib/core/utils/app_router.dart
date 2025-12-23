@@ -7,10 +7,14 @@ import 'package:eyego_task/features/home/presentation/screens/article_screen.dar
 import 'package:eyego_task/features/home/presentation/screens/home_screen.dart';
 import 'package:eyego_task/features/home/presentation/screens/profile_screen.dart';
 import 'package:eyego_task/features/home/presentation/screens/search_screen.dart';
+import 'package:eyego_task/features/splash/presentation/screens/splash_screen_body.dart';
+import 'package:eyego_task/features/splash/presentation/splash_screen.dart';
 import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {
-  static const kInitialRoute = '/';
+  static const kSplashRoute = '/';
+  static const kInitialRoute = '/init';
+
   static const kLoginRoute = '/login';
   static const kSignupRoute = '/signup';
   static const kResetPasswordRoute = '/reset';
@@ -21,6 +25,8 @@ abstract class AppRouter {
 
   static final router = GoRouter(
     routes: [
+      GoRoute(path: kSplashRoute, builder: (context, state) => SplashScreen()),
+
       GoRoute(path: kInitialRoute, builder: (context, state) => InitScreen()),
       GoRoute(path: kLoginRoute, builder: (context, state) => LoginScreen()),
       GoRoute(path: kSignupRoute, builder: (context, state) => SignupScreen()),
