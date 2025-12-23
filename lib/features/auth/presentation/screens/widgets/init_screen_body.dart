@@ -25,8 +25,8 @@ class InitScreenBody extends StatelessWidget {
               children: [
                 Image.asset(
                   AssetsData.logo,
-                  width: width * 0.3,
-                  height: height * 0.3,
+                  width: width * 0.5,
+                  height: height * 0.5,
                 ),
                 Text(
                   "Read the newest news",
