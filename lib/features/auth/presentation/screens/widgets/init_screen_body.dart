@@ -23,11 +23,15 @@ class InitScreenBody extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(
-                  AssetsData.logo,
-                  width: width * 0.5,
-                  height: height * 0.5,
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Image.asset(
+                    AssetsData.logo,
+                    width: width * 0.4,
+                    fit: BoxFit.cover,
+                  ),
                 ),
+                SizedBox(height: 20),
                 Text(
                   "Read the newest news",
                   style: Styles.textStyle20,

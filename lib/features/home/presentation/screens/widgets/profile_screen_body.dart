@@ -19,7 +19,7 @@ class ProfileScreenBody extends StatelessWidget {
         children: [
           Text(
             "Email",
-            style: Styles.textStyle30.copyWith(fontWeight: FontWeight.w700),
+            style: Styles.textStyle30.copyWith(fontWeight: FontWeight.w900),
           ),
           SizedBox(height: 10),
 

@@ -1,4 +1,5 @@
 import 'package:eyego_task/consts.dart';
+import 'package:eyego_task/core/utils/lists.dart';
 import 'package:eyego_task/core/utils/styles.dart';
 import 'package:eyego_task/features/home/data/models/article_model.dart';
 import 'package:eyego_task/features/home/presentation/cubit/news_cubit/news_cubit.dart';
@@ -28,7 +29,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
       final cubit = context.read<NewsCubit>();
       if (controller.position.maxScrollExtent == controller.offset) {
         setState(() {
-          cubit.fetchHeadlines(loadMore: true);
+          cubit.fetchHeadlines(loadMore: true, category: selectedCategory);
         });
       }
     });
@@ -45,16 +46,6 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    final List<String> categories = [
-      "business",
-      "entertainment",
-      "general",
-      "health",
-      "science",
-      "sports",
-      "technology",
-    ];
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: CustomScrollView(
@@ -65,10 +56,14 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ExploreBar(),
-                Divider(thickness: 2, color: kMainColor),
+                Divider(
+                  thickness: 4,
+                  color: kMainColor,
+                  endIndent: width - 120,
+                ),
                 SizedBox(height: 10),
                 FilterRow(
-                  items: categories,
+                  items: AppLists.categories,
                   onChanged: (value) {
                     setState(() {
                       selectedCategory = value!;

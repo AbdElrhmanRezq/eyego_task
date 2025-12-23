@@ -20,11 +20,10 @@ class NewsRepoImpl implements NewsRepo {
   }) async {
     try {
       String endpoint =
-          'everything?q=$q&language=$lang&sortBy=$sortBy&pageSize=$limit&page=$page&apiKey=$apiKey';
+          'everything?q=$q&language=$lang&sortBy=$sortBy&pageSize=$limit&page=$page&searchIn=title&apiKey=$apiKey';
       final Map<String, dynamic> response = await apiService.get(
         endpoint: endpoint,
       );
-      print("Endpoint===========================$endpoint");
 
       final articlesJson = response['articles'] as List<dynamic>;
       final List<ArticleModel> articles = articlesJson

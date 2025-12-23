@@ -1,4 +1,5 @@
 import 'package:eyego_task/consts.dart';
+import 'package:eyego_task/core/utils/lists.dart';
 import 'package:eyego_task/core/utils/styles.dart';
 import 'package:eyego_task/features/auth/presentation/screens/widgets/text_field.dart';
 import 'package:eyego_task/features/home/presentation/cubit/search_cubit/search_cubit.dart';
@@ -36,23 +37,6 @@ class _SearchScreenBodyState extends State<SearchScreenBody> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    List<String> langs = [
-      "ar",
-      "de",
-      "en",
-      "es",
-      "fr",
-      "he",
-      "it",
-      "nl",
-      "no",
-      "pt",
-      "ru",
-      "sv",
-      "ud",
-      "zh",
-    ];
-    List<String> sorts = ['relevancy', 'popularity', 'publishedAt'];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: CustomScrollView(
@@ -71,6 +55,8 @@ class _SearchScreenBodyState extends State<SearchScreenBody> {
           SliverToBoxAdapter(
             child: Column(
               children: [
+                SizedBox(height: 10),
+
                 FilterRow(
                   onChanged: (value) {
                     setState(() {
@@ -83,9 +69,10 @@ class _SearchScreenBodyState extends State<SearchScreenBody> {
                     });
                   },
                   selectedCategory: language,
-                  items: langs,
+                  items: AppLists.langs,
                   type: 'Language',
                 ),
+                SizedBox(height: 10),
                 FilterRow(
                   onChanged: (value) {
                     setState(() {
@@ -98,7 +85,7 @@ class _SearchScreenBodyState extends State<SearchScreenBody> {
                     });
                   },
                   selectedCategory: sortBy,
-                  items: sorts,
+                  items: AppLists.sorts,
                   type: 'Sort By',
                 ),
               ],
