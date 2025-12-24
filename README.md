@@ -1,5 +1,13 @@
 Briefly is a cross-platform news application built with Flutter. It allows users to browse, search, and read the latest news articles from around the world, powered by the NewsAPI. The app features user authentication through Firebase, a clean, dark-themed user interface, and efficient state management.
 
+## Screenshots
+
+### Authentication
+![Authentication Screen](assets/images/auth_image.png)
+
+### Home
+![Home Screen](assets/images/home_image.png)
+
 ## Features
 
 - **Firebase Authentication:** Secure user sign-up, login, and password reset functionality.
