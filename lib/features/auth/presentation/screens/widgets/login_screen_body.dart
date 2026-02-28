@@ -112,6 +112,7 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                       GoRouter.of(
                         context,
                       ).pushReplacement(AppRouter.kHomeRoute);
+                      context.read<AuthCubit>().reset();
                     }
                   },
                 ),

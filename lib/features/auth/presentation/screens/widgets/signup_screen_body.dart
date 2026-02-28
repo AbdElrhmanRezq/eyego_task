@@ -2,6 +2,7 @@ import 'package:eyego_task/consts.dart';
 import 'package:eyego_task/core/utils/app_router.dart';
 import 'package:eyego_task/core/utils/assets.dart';
 import 'package:eyego_task/core/utils/functions/empty_validator.dart';
+import 'package:eyego_task/core/utils/styles.dart';
 import 'package:eyego_task/core/widgets/app_button.dart';
 import 'package:eyego_task/features/auth/presentation/cubit/auth_cubit/auth_cubit.dart';
 import 'package:eyego_task/features/auth/presentation/screens/widgets/text_field.dart';
@@ -89,7 +90,13 @@ class _SignupScreenBodyState extends State<SignupScreenBody> {
                           return Center(
                             child: CircularProgressIndicator(color: kMainColor),
                           );
-                        } else {
+                        } 
+                        else if(state is AuthSuccess){
+                          return Center(
+                            child: Text("Great! Your account has been created. Verify it from your emails",style: Styles.textStyle16.copyWith(color: kMainColor),),
+                          );
+                        }
+                        else {
                           return AppButton(
                             text: "Signup",
                             onPressed: () {
@@ -110,11 +117,13 @@ class _SignupScreenBodyState extends State<SignupScreenBody> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(state.message)),
                           );
-                        } else if (state is AuthSuccess) {
-                          GoRouter.of(
-                            context,
-                          ).pushReplacement(AppRouter.kHomeRoute);
-                        }
+                        } 
+                        // else if (state is AuthSuccess) {
+                        //   GoRouter.of(
+                        //     context,
+                        //   ).pushReplacement(AppRouter.kHomeRoute);
+                        //   context.read<AuthCubit>().reset();
+                        // }
                       },
                     ),
                   ],

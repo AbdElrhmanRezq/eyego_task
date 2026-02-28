@@ -20,7 +20,6 @@ class AuthCubit extends Cubit<AuthState> {
       email,
       password,
     );
-    print(response);
     response.fold(
       (l) => emit(AuthError(l.message)),
       (r) => emit(AuthSuccess()),
@@ -49,6 +48,10 @@ class AuthCubit extends Cubit<AuthState> {
       (l) => emit(AuthError(l.message)),
       (r) => emit(AuthSignout()),
     );
+  }
+
+  void reset() {
+    emit(AuthInitial());
   }
 
   // Future<void> resetPassword(String email) async {
