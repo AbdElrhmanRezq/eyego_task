@@ -5,6 +5,7 @@ import 'package:eyego_task/core/utils/service_locator.dart';
 import 'package:eyego_task/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'auth_state.dart';
 
@@ -15,43 +16,45 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> login(String email, String password) async {
     emit(AuthLoading());
-    final Either<Failure, UserCredential> response = await auth.login(
+    final Either<Failure, void> response = await auth.login(
       email,
       password,
     );
+    print(response);
     response.fold(
       (l) => emit(AuthError(l.message)),
-      (r) => emit(AuthSuccess(r)),
+      (r) => emit(AuthSuccess()),
     );
   }
 
-  Future<void> signup(String email, String password) async {
+  Future<void> signup(String email, String username,String password) async {
     emit(AuthLoading());
 
-    final Either<Failure, UserCredential> response = await auth.signup(
+    final Either<Failure, void> response = await auth.signup(
       email,
-      password,
+      username,
+      password
     );
     response.fold(
       (l) => emit(AuthError(l.message)),
-      (r) => emit(AuthSuccess(r)),
+      (r) => emit(AuthSuccess()),
     );
   }
 
   Future<void> signout() async {
     emit(AuthLoading());
 
-    final Either<Failure, void> response = await auth.signout();
+    final Either<Failure, void> response = await auth.logout();
     response.fold(
       (l) => emit(AuthError(l.message)),
       (r) => emit(AuthSignout()),
     );
   }
 
-  Future<void> resetPassword(String email) async {
-    emit(AuthLoading());
+  // Future<void> resetPassword(String email) async {
+  //   emit(AuthLoading());
 
-    final Either<Failure, void> response = await auth.resetPassword(email);
-    response.fold((l) => emit(AuthError(l.message)), (r) => emit(AuthReset()));
-  }
+  //   final Either<Failure, void> response = await auth.resetPassword(email);
+  //   response.fold((l) => emit(AuthError(l.message)), (r) => emit(AuthReset()));
+  // }
 }

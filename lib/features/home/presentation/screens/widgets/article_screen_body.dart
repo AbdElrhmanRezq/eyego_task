@@ -21,7 +21,8 @@ class ArticleScreenBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(article.source?.name ?? ' ', style: Styles.textStyle20),
-          Text(article.title ?? ' ', style: Styles.textStyle16),
+          Text(article.title ?? ' ', style: Styles.textStyle16),   
+          SizedBox(height: 10),
           ArticleImage(width: width, height: height, article: article),
           SizedBox(height: 10),
           article.author != null

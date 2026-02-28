@@ -29,6 +29,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               shape: BoxShape.circle,
               border: Border.all(color: kMainColor, width: 2),
             ),
+            
             child: CircleAvatar(
               backgroundColor: Colors.transparent,
               child: Icon(Icons.person, color: kMainColor),

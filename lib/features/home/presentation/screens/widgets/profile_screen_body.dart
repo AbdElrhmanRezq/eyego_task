@@ -24,7 +24,7 @@ class ProfileScreenBody extends StatelessWidget {
           SizedBox(height: 10),
 
           Text(
-            (context).read<AuthCubit>().auth.firebaseAuth.currentUser?.email ??
+            (context).read<AuthCubit>().auth.supabase.auth.currentUser?.email ??
                 ' ',
             style: Styles.textStyle16,
           ),
@@ -33,7 +33,7 @@ class ProfileScreenBody extends StatelessWidget {
           AppButton(
             text: "Logout",
             onPressed: () {
-              (context).read<AuthCubit>().auth.signout();
+              (context).read<AuthCubit>().auth.logout();
               GoRouter.of(context).pop();
               GoRouter.of(context).push(AppRouter.kInitialRoute);
             },

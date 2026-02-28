@@ -10,19 +10,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'firebase_options.dart';
 
 void main(List<String> args) async {
   await dotenv.load(fileName: ".env");
 
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Supabase.initialize(
+    url: dotenv.get('SUPABASE_PROJECT_URL'),
+    anonKey: dotenv.get('SUPABASE_KEY'),
+  );
   setup();
-  runApp(Eyego());
+  runApp(Briefly());
 }
 
-class Eyego extends StatelessWidget {
-  const Eyego({super.key});
+class Briefly extends StatelessWidget {
+  const Briefly({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,3 +55,9 @@ class Eyego extends StatelessWidget {
     );
   }
 }
+
+
+//TODO
+//Shift from firebase to supabase
+//Enhance the profile screen with more user details and settings options
+//Implement a light mode toggle for better user experience

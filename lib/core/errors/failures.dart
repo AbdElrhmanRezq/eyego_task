@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class Failure {
   final String message;
@@ -94,6 +95,46 @@ class FirebaseFailure extends Failure {
         return FirebaseFailure(
           e.message ?? 'An unexpected Firebase error occurred.',
         );
+    }
+  }
+}
+
+
+class AuthFailure extends Failure {
+  const AuthFailure(super.message);
+
+  factory AuthFailure.fromException(dynamic e) {
+    if (e is AuthApiException) {
+      switch (e.code) {
+        case 'invalid_credentials':
+          return AuthFailure("Invalid email or password");
+        case 'invalid_token':
+          return AuthFailure("Invalid token, please login again");
+        case 'user_not_found':
+          return AuthFailure("User not found");
+        case 'user_already_exists':
+          return AuthFailure("User already exists");
+        default:
+          return AuthFailure(e.message);
+      }
+    } else if (e is AuthWeakPasswordException) {
+      return AuthFailure(e.message);
+    } else if (e is Exception) {
+      return AuthFailure(e.toString());
+    } else {
+      return const AuthFailure("An unknown error occurred");
+    }
+  }
+}
+
+class DataFailure extends Failure {
+  const DataFailure(super.message);
+
+  factory DataFailure.fromException(dynamic e) {
+    if (e is Exception) {
+      return DataFailure(e.toString());
+    } else {
+      return const DataFailure("An unknown error occurred");
     }
   }
 }

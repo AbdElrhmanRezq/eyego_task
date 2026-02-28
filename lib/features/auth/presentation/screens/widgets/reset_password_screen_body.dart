@@ -78,9 +78,9 @@ class _ResetPasswordScreenBodyState extends State<ResetPasswordScreenBody> {
                             text: "Reset Password",
                             onPressed: () {
                               if (_key.currentState?.validate() ?? false) {
-                                context.read<AuthCubit>().resetPassword(
-                                  emailController.text,
-                                );
+                                // context.read<AuthCubit>().resetPassword(
+                                //   emailController.text,
+                                // );
                               }
                             },
                           );

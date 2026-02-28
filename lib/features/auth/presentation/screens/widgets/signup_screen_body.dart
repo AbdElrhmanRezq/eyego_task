@@ -20,12 +20,14 @@ class SignupScreenBody extends StatefulWidget {
 
 class _SignupScreenBodyState extends State<SignupScreenBody> {
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    usernameController.dispose();
     super.dispose();
   }
 
@@ -67,6 +69,14 @@ class _SignupScreenBodyState extends State<SignupScreenBody> {
 
                     Divider(color: Colors.black),
                     CustomTextFormField(
+                      hintText: "Username",
+                      icon: Icons.person,
+                      controller: usernameController,
+                      validator: emptyValidator("Username"),
+                    ),
+
+                    Divider(color: Colors.black),
+                    CustomTextFormField(
                       hintText: "Password",
                       icon: Icons.lock,
                       controller: passwordController,
@@ -84,8 +94,10 @@ class _SignupScreenBodyState extends State<SignupScreenBody> {
                             text: "Signup",
                             onPressed: () {
                               if (_key.currentState?.validate() ?? false) {
+                                print(passwordController.text);
                                 context.read<AuthCubit>().signup(
                                   emailController.text,
+                                  usernameController.text,
                                   passwordController.text,
                                 );
                               }
