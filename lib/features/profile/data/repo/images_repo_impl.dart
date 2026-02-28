@@ -1,5 +1,5 @@
 import 'package:eyego_task/core/utils/service_locator.dart';
-import 'package:eyego_task/features/home/data/repo/images_repo.dart';
+import 'package:eyego_task/features/profile/data/repo/images_repo.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

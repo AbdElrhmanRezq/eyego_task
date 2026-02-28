@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:eyego_task/core/utils/image_helper.dart';
 import 'package:eyego_task/core/utils/service_locator.dart';
-import 'package:eyego_task/features/home/data/repo/images_repo_impl.dart';
+import 'package:eyego_task/features/profile/data/repo/images_repo_impl.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_cropper/image_cropper.dart';
 

@@ -5,7 +5,7 @@ import 'package:eyego_task/features/auth/presentation/screens/signup_screen.dart
 import 'package:eyego_task/features/home/data/models/article_model.dart';
 import 'package:eyego_task/features/home/presentation/screens/article_screen.dart';
 import 'package:eyego_task/features/home/presentation/screens/home_screen.dart';
-import 'package:eyego_task/features/home/presentation/screens/profile_screen.dart';
+import 'package:eyego_task/features/profile/presentation/screens/profile_screen.dart';
 import 'package:eyego_task/features/home/presentation/screens/search_screen.dart';
 import 'package:eyego_task/features/splash/presentation/screens/splash_screen_body.dart';
 import 'package:eyego_task/features/splash/presentation/splash_screen.dart';
