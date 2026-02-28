@@ -5,10 +5,12 @@ import 'package:eyego_task/features/auth/presentation/screens/signup_screen.dart
 import 'package:eyego_task/features/home/data/models/article_model.dart';
 import 'package:eyego_task/features/home/presentation/screens/article_screen.dart';
 import 'package:eyego_task/features/home/presentation/screens/home_screen.dart';
+import 'package:eyego_task/features/profile/presentation/cubit/user_data_cubit/user_data_cubit.dart';
 import 'package:eyego_task/features/profile/presentation/screens/profile_screen.dart';
 import 'package:eyego_task/features/home/presentation/screens/search_screen.dart';
 import 'package:eyego_task/features/splash/presentation/screens/splash_screen_body.dart';
 import 'package:eyego_task/features/splash/presentation/splash_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {
@@ -38,7 +40,10 @@ abstract class AppRouter {
       GoRoute(path: kSearchRoute, builder: (context, state) => SearchScreen()),
       GoRoute(
         path: kProfileRoute,
-        builder: (context, state) => ProfileScreen(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => UserDataCubit()..fetchUserData(),
+          child: ProfileScreen(),
+        ),
       ),
       GoRoute(
         path: kArticleRoute,

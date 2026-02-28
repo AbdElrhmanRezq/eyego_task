@@ -3,11 +3,11 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class UserModel {
   final String username;
   final String email;
-  String? profileImage;
+  final String profileImage;
   UserModel({
     required this.username,
     required this.email,
-    this.profileImage,
+    required this.profileImage,
   });
 
   UserModel copyWith({
