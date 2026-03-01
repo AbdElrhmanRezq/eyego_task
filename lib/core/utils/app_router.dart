@@ -8,6 +8,7 @@ import 'package:eyego_task/features/home/presentation/screens/home_screen.dart';
 import 'package:eyego_task/features/profile/presentation/cubit/user_data_cubit/user_data_cubit.dart';
 import 'package:eyego_task/features/profile/presentation/screens/profile_screen.dart';
 import 'package:eyego_task/features/home/presentation/screens/search_screen.dart';
+import 'package:eyego_task/features/profile/presentation/screens/profile_settings_screen.dart';
 import 'package:eyego_task/features/splash/presentation/screens/splash_screen_body.dart';
 import 'package:eyego_task/features/splash/presentation/splash_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,6 +25,7 @@ abstract class AppRouter {
   static const kSearchRoute = '/home/search';
   static const kProfileRoute = '/home/profile';
   static const kArticleRoute = '/home/article';
+  static const kSettingsRoute = '/home/profile/settings';
 
   static final router = GoRouter(
     routes: [
@@ -50,6 +52,11 @@ abstract class AppRouter {
         builder: (context, state) =>
             ArticleScreen(article: state.extra as ArticleModel),
       ),
+      GoRoute(
+        path: kSettingsRoute,
+        builder: (context, state) => ProfileSettingsScreen(),
+      ),
+
     ],
   );
 }

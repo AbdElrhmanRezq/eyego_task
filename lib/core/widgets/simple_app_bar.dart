@@ -21,7 +21,10 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: title != null
           ? Text(
               title!,
-              style: Styles.textStyle20.copyWith(fontWeight: FontWeight.bold),
+              style: Styles.textStyle20.copyWith(
+                fontWeight: FontWeight.bold,
+                color: kMainColor,
+              ),
             )
           : null,
       centerTitle: true,

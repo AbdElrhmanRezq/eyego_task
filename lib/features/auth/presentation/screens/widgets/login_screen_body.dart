@@ -68,20 +68,7 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
 
                   validator: emptyValidator("Password"),
                 ),
-                SizedBox(height: 10),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {
-                      GoRouter.of(context).push(AppRouter.kResetPasswordRoute);
-                    },
-                    child: Text(
-                      "Forgot Password?",
-                      style: Styles.textStyle16.copyWith(color: kMainColor),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
+                SizedBox(height: 15),
 
                 BlocConsumer<AuthCubit, AuthState>(
                   builder: (context, state) {
