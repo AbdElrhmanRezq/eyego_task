@@ -23,10 +23,25 @@ class UserDataCubit extends Cubit<UserDataState> {
         final userModel = UserModel.fromJson(response);
         emit(UserDataLoaded(userModel));
       } else {
-        emit( UserDataError('No user is currently logged in.'));
+        emit(UserDataError('No user is currently logged in.'));
       }
     } catch (e) {
       emit(UserDataError(e.toString()));
+    }
+  }
+
+  void changeImageUrl(String newUrl) {
+    print("I am here");
+
+    if (state is UserDataLoaded) {
+      final currentState = state as UserDataLoaded;
+      final updatedUser = currentState.user.copyWith(profileImage: newUrl);
+      print(
+        "================================Updated===============================",
+      );
+
+      print(updatedUser.profileImage);
+      emit(UserDataLoaded(updatedUser));
     }
   }
 }

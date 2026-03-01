@@ -9,10 +9,12 @@ class ImagesRepoImpl implements ImagesRepo {
   Future<void> updateImageData(String imageUrl, String type) async {
     try {
       final String currentUser = supabase.auth.currentUser?.id ?? '';
+
       await supabase
           .from('users')
           .update({type: imageUrl})
           .eq('u_id', currentUser);
+      print(type);
     } on PostgrestException catch (e) {
       print('PostgrestException: ${e.message}');
       throw e;
