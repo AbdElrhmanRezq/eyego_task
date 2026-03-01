@@ -3,6 +3,7 @@ import 'package:eyego_task/features/auth/presentation/screens/login_screen.dart'
 import 'package:eyego_task/features/auth/presentation/screens/reset_password_screen.dart';
 import 'package:eyego_task/features/auth/presentation/screens/signup_screen.dart';
 import 'package:eyego_task/features/home/data/models/article_model.dart';
+import 'package:eyego_task/features/home/presentation/cubit/article_cubit/article_cubit.dart';
 import 'package:eyego_task/features/home/presentation/screens/article_screen.dart';
 import 'package:eyego_task/features/home/presentation/screens/home_screen.dart';
 import 'package:eyego_task/features/profile/presentation/cubit/user_data_cubit/user_data_cubit.dart';
@@ -54,8 +55,10 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kArticleRoute,
-        builder: (context, state) =>
-            ArticleScreen(article: state.extra as ArticleModel),
+        builder: (context, state) => BlocProvider(
+          create: (context) => ArticleCubit(),
+          child: ArticleScreen(article: state.extra as ArticleModel),
+        ),
       ),
       GoRoute(
         path: kSettingsRoute,

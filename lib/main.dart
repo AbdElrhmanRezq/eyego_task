@@ -3,6 +3,7 @@ import 'package:eyego_task/core/utils/app_router.dart';
 import 'package:eyego_task/core/utils/service_locator.dart';
 import 'package:eyego_task/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:eyego_task/features/auth/presentation/cubit/auth_cubit/auth_cubit.dart';
+import 'package:eyego_task/features/home/presentation/cubit/article_cubit/article_cubit.dart';
 import 'package:eyego_task/features/home/presentation/cubit/news_cubit/news_cubit.dart';
 import 'package:eyego_task/features/home/presentation/cubit/search_cubit/search_cubit.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,7 @@ class Briefly extends StatelessWidget {
         BlocProvider(create: (context) => AuthCubit(getIt.get<AuthRepoImpl>())),
         BlocProvider(create: (context) => NewsCubit()),
         BlocProvider(create: (context) => SearchCubit()),
+        //BlocProvider(create: (context) => ArticleCubit()),
       ],
       child: MaterialApp.router(
         routerConfig: AppRouter.router,
@@ -58,6 +60,4 @@ class Briefly extends StatelessWidget {
 
 
 //TODO
-//Shift from firebase to supabase
-//Enhance the profile screen with more user details and settings options
 //Implement a light mode toggle for better user experience

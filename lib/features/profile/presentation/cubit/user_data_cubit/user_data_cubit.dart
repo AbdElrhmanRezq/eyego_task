@@ -31,15 +31,9 @@ class UserDataCubit extends Cubit<UserDataState> {
   }
 
   void changeImageUrl(String newUrl) {
-    print("I am here");
-
     if (state is UserDataLoaded) {
       final currentState = state as UserDataLoaded;
       final updatedUser = currentState.user.copyWith(profileImage: newUrl);
-      print(
-        "================================Updated===============================",
-      );
-
       print(updatedUser.profileImage);
       emit(UserDataLoaded(updatedUser));
     }

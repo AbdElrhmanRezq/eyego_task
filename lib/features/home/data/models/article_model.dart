@@ -1,5 +1,6 @@
 class ArticleModel {
-  final Source? source;
+  final String? id;
+  final String? name;
   final String? author;
   final String? title;
   final String? description;
@@ -9,7 +10,8 @@ class ArticleModel {
   final String? content;
 
   ArticleModel({
-    this.source,
+    this.id,
+    this.name,
     this.author,
     this.title,
     this.description,
@@ -21,7 +23,8 @@ class ArticleModel {
 
   factory ArticleModel.fromJson(Map<String, dynamic> json) {
     return ArticleModel(
-      source: json['source'] != null ? Source.fromJson(json['source']) : null,
+      id: json['id'] as String?,
+      name: json['name'] as String?,
       author: json['author'] as String?,
       title: json['title'] as String?,
       description: json['description'] as String?,
@@ -36,7 +39,7 @@ class ArticleModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'source': source?.toJson(),
+      'name': name,
       'author': author,
       'title': title,
       'description': description,
@@ -45,20 +48,5 @@ class ArticleModel {
       'publishedAt': publishedAt?.toIso8601String(),
       'content': content,
     };
-  }
-}
-
-class Source {
-  final String? id;
-  final String? name;
-
-  Source({this.id, this.name});
-
-  factory Source.fromJson(Map<String, dynamic> json) {
-    return Source(id: json['id'] as String?, name: json['name'] as String?);
-  }
-
-  Map<String, dynamic> toJson() {
-    return {'id': id, 'name': name};
   }
 }
