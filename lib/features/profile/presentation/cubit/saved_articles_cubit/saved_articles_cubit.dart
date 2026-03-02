@@ -17,7 +17,7 @@ class SavedArticlesCubit extends Cubit<SavedArticlesState> {
   Future<void> getSavedArticles() async {
     if (isFetchingMore) return;
     isFetchingMore = true;
-    emit(SavedArticlesLoading());
+    //emit(SavedArticlesLoading());
     final result = await supabaseRepo.getSavedArticles(
       limit: limit,
       page: page,

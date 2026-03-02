@@ -18,8 +18,9 @@ class HomeScreenBody extends StatefulWidget {
 }
 
 class _HomeScreenBodyState extends State<HomeScreenBody> {
-  final ScrollController controller = ScrollController();
   String selectedCategory = 'general';
+  final ScrollController controller = ScrollController();
+
   @override
   void initState() {
     super.initState();

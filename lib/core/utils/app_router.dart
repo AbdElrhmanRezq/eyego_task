@@ -6,6 +6,7 @@ import 'package:eyego_task/features/home/data/models/article_model.dart';
 import 'package:eyego_task/features/home/presentation/cubit/article_cubit/article_cubit.dart';
 import 'package:eyego_task/features/home/presentation/screens/article_screen.dart';
 import 'package:eyego_task/features/home/presentation/screens/home_screen.dart';
+import 'package:eyego_task/features/profile/presentation/cubit/saved_articles_cubit/saved_articles_cubit.dart';
 import 'package:eyego_task/features/profile/presentation/cubit/user_data_cubit/user_data_cubit.dart';
 import 'package:eyego_task/features/profile/presentation/cubit/user_images_cubit/user_images_cubit.dart';
 import 'package:eyego_task/features/profile/presentation/screens/profile_screen.dart';
@@ -47,6 +48,9 @@ abstract class AppRouter {
         builder: (context, state) => MultiBlocProvider(
           providers: [
             BlocProvider(create: (context) => UserImagesCubit()),
+            BlocProvider(
+              create: (context) => SavedArticlesCubit()..getSavedArticles(),
+            ),
 
             BlocProvider(create: (context) => UserDataCubit()..fetchUserData()),
           ],

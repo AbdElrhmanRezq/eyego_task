@@ -9,12 +9,12 @@ final class SavedArticlesLoading extends SavedArticlesState {}
 
 final class SavedArticlesLoaded extends SavedArticlesState {
   final List<ArticleModel> articles;
-  bool hasMore;
-  bool isFetchingMore;
+  final bool hasMore;
+  final bool isFetchingMore;
   SavedArticlesLoaded({
     required this.articles,
-    this.hasMore = true,
-    this.isFetchingMore = false,
+    required this.hasMore,
+    required this.isFetchingMore,
   });
 }
 
