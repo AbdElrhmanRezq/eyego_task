@@ -4,4 +4,8 @@ import 'package:eyego_task/features/home/data/models/article_model.dart';
 
 abstract class SupabaseRepo {
   Future<Either<Failure, void>> saveArticle(ArticleModel article);
+  Future<Either<Failure, List<ArticleModel>>> getSavedArticles({
+    int limit = 20,
+    int page = 1,
+  });
 }

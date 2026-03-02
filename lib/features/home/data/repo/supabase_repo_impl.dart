@@ -25,4 +25,30 @@ class SupabaseRepoImpl implements SupabaseRepo {
       return Left(DataFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, List<ArticleModel>>> getSavedArticles({
+    int limit = 20,
+    int page = 1,
+  }) async {
+    try {
+      final SupabaseClient supabase = getIt.get<SupabaseClient>();
+      final response = await supabase
+          .from('saved_articles')
+          .select()
+          .range((page - 1) * limit, page * limit - 1);
+      if (response == null) {
+        return left(DataFailure("Failed to fetch saved articles"));
+      } else {
+        List<ArticleModel> articles = (response as List)
+            .map((articleJson) => ArticleModel.fromJson(articleJson))
+            .toList();
+        return right(articles);
+      }
+    } on DataFailure catch (e) {
+      return left(DataFailure.fromException(e.message));
+    } catch (e) {
+      return left(DataFailure(e.toString()));
+    }
+  }
 }
