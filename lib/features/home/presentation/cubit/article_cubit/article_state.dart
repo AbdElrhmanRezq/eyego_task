@@ -5,9 +5,12 @@ sealed class ArticleState {}
 
 final class ArticleInitial extends ArticleState {}
 
-final class ArticleSaving extends ArticleState {}
+final class Articletoggling extends ArticleState {}
 
-final class ArticleSaved extends ArticleState {}
+final class ArticleToggled extends ArticleState {
+  bool isSaved;
+  ArticleToggled({required this.isSaved});
+}
 
 final class ArticleError extends ArticleState {
   final String message;

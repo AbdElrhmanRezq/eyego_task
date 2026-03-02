@@ -7,17 +7,33 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseRepoImpl implements SupabaseRepo {
   @override
-  Future<Either<Failure, void>> saveArticle(ArticleModel article) async {
+  Future<Either<Failure, void>> toggleSave(ArticleModel article) async {
     final SupabaseClient supabase = getIt.get<SupabaseClient>();
     try {
-      final response = await supabase
-          .from('saved_articles')
-          .insert(article.toJson())
-          .maybeSingle();
-      if (response == null) {
-        return Left(DataFailure("Failed to save article"));
+      final bool isSaved = await checkSaveStatus(
+        article,
+      ).then((result) => result.fold((failure) => false, (status) => status));
+      if (isSaved) {
+        final response = await supabase
+            .from('saved_articles')
+            .delete()
+            .eq('url', article.url as String)
+            .eq('u_id', supabase.auth.currentUser?.id as String);
+        if (response == null) {
+          return Left(DataFailure("Failed to unsave article"));
+        } else {
+          return const Right(null);
+        }
       } else {
-        return const Right(null);
+        final response = await supabase
+            .from('saved_articles')
+            .insert(article.toJson())
+            .maybeSingle();
+        if (response == null) {
+          return Left(DataFailure("Failed to save article"));
+        } else {
+          return const Right(null);
+        }
       }
     } on DataFailure catch (e) {
       return Left(DataFailure.fromException(e.message));
@@ -49,6 +65,29 @@ class SupabaseRepoImpl implements SupabaseRepo {
       return left(DataFailure.fromException(e.message));
     } catch (e) {
       return left(DataFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> checkSaveStatus(ArticleModel article) async {
+    try {
+      final SupabaseClient supabase = getIt.get<SupabaseClient>();
+
+      final userId = supabase.auth.currentUser?.id;
+
+      if (userId == null || article.url == null) {
+        return const Right(false);
+      }
+      final response = await supabase
+          .from('saved_articles')
+          .select()
+          .eq('u_id', userId)
+          .eq('url', article.url!)
+          .maybeSingle();
+      print(response);
+      return Right(response != null);
+    } catch (e) {
+      return Left(DataFailure(e.toString()));
     }
   }
 }

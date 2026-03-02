@@ -60,29 +60,27 @@ class ArticleScreenBody extends StatelessWidget {
               ),
               BlocConsumer<ArticleCubit, ArticleState>(
                 builder: (context, state) {
-                  if (state is ArticleSaving) {
+                  if (state is Articletoggling) {
                     return Center(child: CircularProgressIndicator());
-                  } else if (state is ArticleSaved) {
-                    return Icon(Icons.bookmark, color: kMainColor, size: 36);
-                  } else {
+                  } else if (state is ArticleToggled) {
                     return IconButton(
                       onPressed: () {
-                        context.read<ArticleCubit>().saveArticle(article);
+                        context.read<ArticleCubit>().toggleSave(article);
                       },
-                      icon: Icon(
-                        Icons.bookmark_border,
-                        color: kMainColor,
-                        size: 36,
-                      ),
+                      icon: state.isSaved
+                          ? Icon(Icons.bookmark, color: kMainColor, size: 36)
+                          : Icon(
+                              Icons.bookmark_border,
+                              color: kMainColor,
+                              size: 36,
+                            ),
                     );
+                  } else {
+                    return SizedBox();
                   }
                 },
                 listener: (context, state) {
-                  if (state is ArticleSaved) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Article saved successfully")),
-                    );
-                  } else if (state is ArticleError) {
+                  if (state is ArticleError) {
                     ScaffoldMessenger.of(
                       context,
                     ).showSnackBar(SnackBar(content: Text(state.message)));

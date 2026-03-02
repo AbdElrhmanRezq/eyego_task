@@ -60,7 +60,8 @@ abstract class AppRouter {
       GoRoute(
         path: kArticleRoute,
         builder: (context, state) => BlocProvider(
-          create: (context) => ArticleCubit(),
+          create: (context) =>
+              ArticleCubit()..isArticleSaved(state.extra as ArticleModel),
           child: ArticleScreen(article: state.extra as ArticleModel),
         ),
       ),

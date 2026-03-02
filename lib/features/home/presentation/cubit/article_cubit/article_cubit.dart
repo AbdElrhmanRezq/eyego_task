@@ -11,14 +11,30 @@ part 'article_state.dart';
 class ArticleCubit extends Cubit<ArticleState> {
   ArticleCubit() : super(ArticleInitial());
   final SupabaseRepo repo = getIt.get<SupabaseRepo>();
+  bool isSaved = false;
 
-  Future<void> saveArticle(ArticleModel article) async {
-    emit(ArticleSaving());
+  Future<void> toggleSave(ArticleModel article) async {
+    emit(Articletoggling());
     try {
-      await repo.saveArticle(article);
-      emit(ArticleSaved());
+      await repo.toggleSave(article);
+      isSaved = !isSaved;
+      emit(ArticleToggled(isSaved: isSaved));
     } catch (e) {
       emit(ArticleError(e.toString()));
     }
+  }
+
+  Future<void> isArticleSaved(ArticleModel article) async {
+    final response = await repo.checkSaveStatus(article);
+    print(response);
+    response.fold(
+      (faliure) {
+        isSaved = false;
+      },
+      (check) {
+        isSaved = check;
+        emit(ArticleToggled(isSaved: isSaved));
+      },
+    );
   }
 }
