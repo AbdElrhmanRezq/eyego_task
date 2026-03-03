@@ -87,7 +87,6 @@ class SupabaseRepoImpl implements SupabaseRepo {
           .eq('u_id', userId)
           .eq('url', article.url!)
           .maybeSingle();
-      print(response);
       return Right(response != null);
     } catch (e) {
       return Left(DataFailure(e.toString()));
@@ -104,7 +103,6 @@ class SupabaseRepoImpl implements SupabaseRepo {
           .eq('url', article.url as String)
           .count(CountOption.exact)
           .then((response) {
-            print(response);
             if (response == null) {
               return Left(DataFailure("Failed to fetch saves count"));
             } else {

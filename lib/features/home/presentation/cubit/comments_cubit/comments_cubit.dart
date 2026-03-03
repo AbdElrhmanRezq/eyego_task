@@ -4,12 +4,14 @@ import 'package:eyego_task/core/utils/service_locator.dart';
 import 'package:eyego_task/features/home/data/models/article_model.dart';
 import 'package:eyego_task/features/home/data/models/comment_model.dart';
 import 'package:eyego_task/features/home/data/repo/supabase_repo.dart';
+import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'comments_state.dart';
 
 class CommentsCubit extends Cubit<CommentsState> {
+  TextEditingController commentController = TextEditingController();
   int offset = 0;
   Set<CommentModel> comments = {};
   bool isLoading = false;
@@ -30,13 +32,12 @@ class CommentsCubit extends Cubit<CommentsState> {
       result.fold((l) => throw Exception(l), (fetchedComments) {
         if (fetchedComments.length < 20) {
           hasMore = false;
-        } else {
-          comments.addAll(fetchedComments);
-          offset += fetchedComments.length;
         }
-      });
+        comments.addAll(fetchedComments);
+        offset += fetchedComments.length;
 
-      emit(CommentsLoaded(comments: comments));
+        emit(CommentsLoaded(comments: comments));
+      });
     } catch (e) {
       emit(CommentsFailure(errorMessage: e.toString()));
     } finally {
@@ -44,16 +45,18 @@ class CommentsCubit extends Cubit<CommentsState> {
     }
   }
 
-  Future<void> addComment(CommentModel comment, ArticleModel article) async {
+  Future<void> addComment(String commentText, ArticleModel article) async {
+    emit(CommentSending());
     try {
       final result = await supabaseRepo.addComment(
         article: article,
-        text: comment.text,
+        text: commentText,
       );
       result.fold((l) => throw Exception(l), (addedComment) {
         comments.add(addedComment);
+        emit(CommentSent(comment: addedComment));
       });
-
+      commentController.clear();
       emit(CommentsLoaded(comments: comments));
     } catch (e) {
       emit(CommentsFailure(errorMessage: e.toString()));
