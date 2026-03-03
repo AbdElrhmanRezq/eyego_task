@@ -13,6 +13,7 @@ part 'comments_state.dart';
 class CommentsCubit extends Cubit<CommentsState> {
   TextEditingController commentController = TextEditingController();
   int offset = 0;
+  int limit = 5;
   Set<CommentModel> comments = {};
   bool isLoading = false;
   bool hasMore = true;
@@ -27,10 +28,11 @@ class CommentsCubit extends Cubit<CommentsState> {
     try {
       final result = await supabaseRepo.fetchComments(
         article: article,
-        page: offset ~/ 20 + 1,
+        page: offset ~/ limit + 1,
+        limit: limit,
       );
       result.fold((l) => throw Exception(l), (fetchedComments) {
-        if (fetchedComments.length < 20) {
+        if (fetchedComments.length < limit) {
           hasMore = false;
         }
         comments.addAll(fetchedComments);
@@ -47,19 +49,21 @@ class CommentsCubit extends Cubit<CommentsState> {
 
   Future<void> addComment(String commentText, ArticleModel article) async {
     emit(CommentSending());
-    try {
-      final result = await supabaseRepo.addComment(
-        article: article,
-        text: commentText,
-      );
-      result.fold((l) => throw Exception(l), (addedComment) {
+    final result = await supabaseRepo.addComment(
+      article: article,
+      text: commentText,
+    );
+    result.fold(
+      (l) {
+        emit(CommentsFailure(errorMessage: l.toString()));
+      },
+      (addedComment) async {
         comments.add(addedComment);
         emit(CommentSent(comment: addedComment));
-      });
-      commentController.clear();
-      emit(CommentsLoaded(comments: comments));
-    } catch (e) {
-      emit(CommentsFailure(errorMessage: e.toString()));
-    }
+        await Future.delayed(const Duration(seconds: 1));
+        commentController.clear();
+        emit(CommentsLoaded(comments: comments));
+      },
+    );
   }
 }

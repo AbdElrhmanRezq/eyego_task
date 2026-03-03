@@ -157,11 +157,11 @@ class SupabaseRepoImpl implements SupabaseRepo {
           DataFailure("User not authenticated or article URL missing"),
         );
       }
-      final response = await supabase.from('comments').insert({
-        'u_id': userId,
-        'url': article.url,
-        'text': text,
-      }).maybeSingle();
+      final response = await supabase
+          .from('comments')
+          .insert({'u_id': userId, 'url': article.url, 'text': text})
+          .select()
+          .single();
       if (response == null) {
         return Left(DataFailure("Failed to add comment"));
       }
