@@ -9,7 +9,8 @@ final class Articletoggling extends ArticleState {}
 
 final class ArticleToggled extends ArticleState {
   bool isSaved;
-  ArticleToggled({required this.isSaved});
+  int saveCount;
+  ArticleToggled({required this.isSaved, this.saveCount = 0});
 }
 
 final class ArticleError extends ArticleState {

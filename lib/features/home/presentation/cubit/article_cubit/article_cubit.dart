@@ -12,28 +12,42 @@ class ArticleCubit extends Cubit<ArticleState> {
   ArticleCubit() : super(ArticleInitial());
   final SupabaseRepo repo = getIt.get<SupabaseRepo>();
   bool isSaved = false;
+  int saveCount = 0;
 
   Future<void> toggleSave(ArticleModel article) async {
     emit(Articletoggling());
     try {
       await repo.toggleSave(article);
       isSaved = !isSaved;
-      emit(ArticleToggled(isSaved: isSaved));
+      if (isSaved) {
+        saveCount++;
+      } else {
+        saveCount--;
+      }
+      emit(ArticleToggled(isSaved: isSaved, saveCount: saveCount));
     } catch (e) {
       emit(ArticleError(e.toString()));
     }
   }
 
   Future<void> isArticleSaved(ArticleModel article) async {
+    final countResponse = await repo.getSavesCount(article);
+    countResponse.fold(
+      (l) {
+        saveCount = 0;
+      },
+      (count) {
+        saveCount = count;
+      },
+    );
     final response = await repo.checkSaveStatus(article);
-    print(response);
     response.fold(
       (faliure) {
         isSaved = false;
       },
       (check) {
         isSaved = check;
-        emit(ArticleToggled(isSaved: isSaved));
+        emit(ArticleToggled(isSaved: isSaved, saveCount: saveCount));
       },
     );
   }

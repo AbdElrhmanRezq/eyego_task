@@ -22,13 +22,16 @@ class ProfileScreenSettingsBody extends StatelessWidget {
           BlocConsumer<UserImagesCubit, UserImagesState>(
             builder: (context, state) {
               if (state is UserImagesUploading) {
-                return Container(
-                  height: height * 0.1,
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 31, 31, 31),
-                    borderRadius: BorderRadius.circular(12),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: Container(
+                    height: height * 0.1,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 31, 31, 31),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Center(child: CircularProgressIndicator()),
                   ),
-                  child: const Center(child: CircularProgressIndicator()),
                 );
               } else {
                 return SettingsScreenTile(

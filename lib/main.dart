@@ -60,5 +60,5 @@ class Briefly extends StatelessWidget {
 
 
 //TODO
-//Dispplay saved articles and the unsave functionality
+//Comments
 //Implement a light mode toggle for better user experience

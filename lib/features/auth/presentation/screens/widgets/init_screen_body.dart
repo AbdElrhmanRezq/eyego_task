@@ -33,13 +33,13 @@ class InitScreenBody extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 Text(
-                  "Read the newest news",
+                  "Read the latest news",
                   style: Styles.textStyle20,
                   textAlign: TextAlign.start,
                 ),
                 SizedBox(height: 20),
                 Text(
-                  "Read any news from anywhere easily and you can create awesome news",
+                  "Read and react with the latest news from around the world, all in one place.",
                   style: Styles.textStyle16,
                   textAlign: TextAlign.start,
                 ),

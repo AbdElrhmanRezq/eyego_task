@@ -5,6 +5,7 @@ import 'package:eyego_task/core/widgets/app_button.dart';
 import 'package:eyego_task/features/home/data/models/article_model.dart';
 import 'package:eyego_task/features/home/presentation/cubit/article_cubit/article_cubit.dart';
 import 'package:eyego_task/features/home/presentation/screens/widgets/article_image.dart';
+import 'package:eyego_task/features/home/presentation/screens/widgets/save_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -45,35 +46,34 @@ class ArticleScreenBody extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppButton(
-                width: width * 0.75,
-                text: "Go to article",
-                onPressed: () {
-                  if (article.url != null) {
-                    launchExternalUrl(article.url!);
-                  } else {
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text("No URL found")));
-                  }
-                },
-              ),
               BlocConsumer<ArticleCubit, ArticleState>(
                 builder: (context, state) {
                   if (state is Articletoggling) {
                     return Center(child: CircularProgressIndicator());
                   } else if (state is ArticleToggled) {
-                    return IconButton(
-                      onPressed: () {
-                        context.read<ArticleCubit>().toggleSave(article);
-                      },
-                      icon: state.isSaved
-                          ? Icon(Icons.bookmark, color: kMainColor, size: 36)
-                          : Icon(
-                              Icons.bookmark_border,
-                              color: kMainColor,
-                              size: 36,
-                            ),
+                    return Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            context.read<ArticleCubit>().toggleSave(article);
+                          },
+                          icon: state.isSaved
+                              ? Icon(
+                                  Icons.bookmark,
+                                  color: kMainColor,
+                                  size: 36,
+                                )
+                              : Icon(
+                                  Icons.bookmark_border,
+                                  color: kMainColor,
+                                  size: 36,
+                                ),
+                        ),
+                        Text(
+                          "${state.saveCount}",
+                          style: Styles.textStyle18.copyWith(color: kMainColor),
+                        ),
+                      ],
                     );
                   } else {
                     return SizedBox();

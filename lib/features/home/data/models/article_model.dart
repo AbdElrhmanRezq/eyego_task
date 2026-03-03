@@ -8,6 +8,7 @@ class ArticleModel {
   final String? urlToImage;
   final DateTime? publishedAt;
   final String? content;
+  final String? a_id;
 
   ArticleModel({
     this.id,
@@ -19,6 +20,7 @@ class ArticleModel {
     this.urlToImage,
     this.publishedAt,
     this.content,
+    this.a_id,
   });
 
   factory ArticleModel.fromJson(Map<String, dynamic> json) {
@@ -34,11 +36,13 @@ class ArticleModel {
           ? DateTime.parse(json['publishedAt'])
           : null,
       content: json['content'] as String?,
+      a_id: json['a_id'] as String?,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
+      "id": id,
       'name': name,
       'author': author,
       'title': title,

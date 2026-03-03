@@ -49,9 +49,11 @@ class SupabaseRepoImpl implements SupabaseRepo {
   }) async {
     try {
       final SupabaseClient supabase = getIt.get<SupabaseClient>();
+      final String uId = supabase.auth.currentUser?.id as String;
       final response = await supabase
           .from('saved_articles')
           .select()
+          .eq("u_id", uId)
           .range((page - 1) * limit, page * limit - 1);
       if (response == null) {
         return left(DataFailure("Failed to fetch saved articles"));
@@ -86,6 +88,31 @@ class SupabaseRepoImpl implements SupabaseRepo {
           .maybeSingle();
       print(response);
       return Right(response != null);
+    } catch (e) {
+      return Left(DataFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, int>> getSavesCount(ArticleModel article) async {
+    try {
+      final SupabaseClient supabase = getIt.get<SupabaseClient>();
+      return supabase
+          .from('saved_articles')
+          .select('a_id')
+          .eq('url', article.url as String)
+          .count(CountOption.exact)
+          .then((response) {
+            print(response);
+            if (response == null) {
+              return Left(DataFailure("Failed to fetch saves count"));
+            } else {
+              final count = response.count ?? 0;
+              return Right(count);
+            }
+          });
+    } on DataFailure catch (e) {
+      return Left(DataFailure.fromException(e.message));
     } catch (e) {
       return Left(DataFailure(e.toString()));
     }

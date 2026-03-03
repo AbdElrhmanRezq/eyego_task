@@ -10,4 +10,6 @@ abstract class SupabaseRepo {
     int limit = 20,
     int page = 1,
   });
+
+  Future<Either<Failure, int>> getSavesCount(ArticleModel article);
 }
