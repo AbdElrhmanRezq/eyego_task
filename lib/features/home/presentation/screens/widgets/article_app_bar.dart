@@ -33,6 +33,7 @@ class ArticleAppBar extends StatelessWidget implements PreferredSizeWidget {
           },
           icon: Icon(Icons.open_in_new, color: kMainColor),
         ),
+        SizedBox(width: 5),
       ],
     );
   }

@@ -173,4 +173,28 @@ class SupabaseRepoImpl implements SupabaseRepo {
       return Left(DataFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, int>> getCommentsCount(ArticleModel article) async {
+    try {
+      final SupabaseClient supabase = getIt.get<SupabaseClient>();
+      return supabase
+          .from('comments')
+          .select('url')
+          .eq('url', article.url as String)
+          .count(CountOption.exact)
+          .then((response) {
+            if (response == null) {
+              return Left(DataFailure("Failed to fetch comments count"));
+            } else {
+              final count = response.count ?? 0;
+              return Right(count);
+            }
+          });
+    } on DataFailure catch (e) {
+      return Left(DataFailure.fromException(e.message));
+    } catch (e) {
+      return Left(DataFailure(e.toString()));
+    }
+  }
 }

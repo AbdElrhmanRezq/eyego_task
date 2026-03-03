@@ -63,8 +63,9 @@ abstract class AppRouter {
         builder: (context, state) => MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (context) =>
-                  ArticleCubit()..isArticleSaved(state.extra as ArticleModel),
+              create: (context) => ArticleCubit()
+                ..getCommentsCount(state.extra as ArticleModel)
+                ..isArticleSaved(state.extra as ArticleModel),
             ),
             BlocProvider(create: (context) => CommentsCubit()),
           ],

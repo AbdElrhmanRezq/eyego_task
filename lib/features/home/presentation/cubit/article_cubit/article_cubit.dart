@@ -13,6 +13,7 @@ class ArticleCubit extends Cubit<ArticleState> {
   final SupabaseRepo repo = getIt.get<SupabaseRepo>();
   bool isSaved = false;
   int saveCount = 0;
+  int commentsCount = 0;
 
   Future<void> toggleSave(ArticleModel article) async {
     emit(Articletoggling());
@@ -24,7 +25,13 @@ class ArticleCubit extends Cubit<ArticleState> {
       } else {
         saveCount--;
       }
-      emit(ArticleToggled(isSaved: isSaved, saveCount: saveCount));
+      emit(
+        ArticleToggled(
+          isSaved: isSaved,
+          saveCount: saveCount,
+          commentsCount: commentsCount,
+        ),
+      );
     } catch (e) {
       emit(ArticleError(e.toString()));
     }
@@ -47,8 +54,33 @@ class ArticleCubit extends Cubit<ArticleState> {
       },
       (check) {
         isSaved = check;
-        emit(ArticleToggled(isSaved: isSaved, saveCount: saveCount));
+        emit(
+          ArticleToggled(
+            isSaved: isSaved,
+            saveCount: saveCount,
+            commentsCount: commentsCount,
+          ),
+        );
       },
+    );
+  }
+
+  Future<void> getCommentsCount(ArticleModel article) async {
+    final countResponse = await repo.getCommentsCount(article);
+    countResponse.fold(
+      (l) {
+        commentsCount = 0;
+      },
+      (count) {
+        commentsCount = count;
+      },
+    );
+    emit(
+      ArticleToggled(
+        isSaved: isSaved,
+        saveCount: saveCount,
+        commentsCount: commentsCount,
+      ),
     );
   }
 }

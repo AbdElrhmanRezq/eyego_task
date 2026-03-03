@@ -1,6 +1,7 @@
 import 'package:eyego_task/consts.dart';
 import 'package:eyego_task/core/utils/styles.dart';
 import 'package:eyego_task/features/home/data/models/article_model.dart';
+import 'package:eyego_task/features/home/presentation/cubit/article_cubit/article_cubit.dart';
 import 'package:eyego_task/features/home/presentation/cubit/comments_cubit/comments_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,6 +35,7 @@ class CommentTextField extends StatelessWidget {
                           context.read<CommentsCubit>().commentController.text,
                           article,
                         );
+                        context.read<ArticleCubit>().getCommentsCount(article);
                       },
                 icon: SentIcon(state: state),
               ),

@@ -10,7 +10,12 @@ final class Articletoggling extends ArticleState {}
 final class ArticleToggled extends ArticleState {
   bool isSaved;
   int saveCount;
-  ArticleToggled({required this.isSaved, this.saveCount = 0});
+  int commentsCount;
+  ArticleToggled({
+    required this.isSaved,
+    this.saveCount = 0,
+    this.commentsCount = 0,
+  });
 }
 
 final class ArticleError extends ArticleState {

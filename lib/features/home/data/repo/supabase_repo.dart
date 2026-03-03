@@ -22,4 +22,5 @@ abstract class SupabaseRepo {
     required ArticleModel article,
     required String text,
   });
+  Future<Either<Failure, int>> getCommentsCount(ArticleModel article);
 }
