@@ -120,7 +120,7 @@ class SupabaseRepoImpl implements SupabaseRepo {
   }
 
   @override
-  Future<Either<Failure, List<CommentModel>>> getComments({
+  Future<Either<Failure, List<CommentModel>>> fetchComments({
     required ArticleModel article,
     int limit = 20,
     int page = 1,

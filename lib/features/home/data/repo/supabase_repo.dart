@@ -13,7 +13,7 @@ abstract class SupabaseRepo {
   });
 
   Future<Either<Failure, int>> getSavesCount(ArticleModel article);
-  Future<Either<Failure, List<CommentModel>>> getComments({
+  Future<Either<Failure, List<CommentModel>>> fetchComments({
     required ArticleModel article,
     int limit = 20,
     int page = 1,
