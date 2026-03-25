@@ -56,15 +56,11 @@ class SupabaseRepoImpl implements SupabaseRepo {
           .select()
           .eq("u_id", uId)
           .range((page - 1) * limit, page * limit - 1);
-      if (response == null) {
-        return left(DataFailure("Failed to fetch saved articles"));
-      } else {
-        List<ArticleModel> articles = (response as List)
-            .map((articleJson) => ArticleModel.fromJson(articleJson))
-            .toList();
-        return right(articles);
-      }
-    } on DataFailure catch (e) {
+      List<ArticleModel> articles = (response as List)
+          .map((articleJson) => ArticleModel.fromJson(articleJson))
+          .toList();
+      return right(articles);
+        } on DataFailure catch (e) {
       return left(DataFailure.fromException(e.message));
     } catch (e) {
       return left(DataFailure(e.toString()));
@@ -103,13 +99,9 @@ class SupabaseRepoImpl implements SupabaseRepo {
           .eq('url', article.url as String)
           .count(CountOption.exact)
           .then((response) {
-            if (response == null) {
-              return Left(DataFailure("Failed to fetch saves count"));
-            } else {
-              final count = response.count ?? 0;
-              return Right(count);
-            }
-          });
+            final count = response.count ?? 0;
+            return Right(count);
+                    });
     } on DataFailure catch (e) {
       return Left(DataFailure.fromException(e.message));
     } catch (e) {
@@ -130,9 +122,6 @@ class SupabaseRepoImpl implements SupabaseRepo {
           .select()
           .eq('url', article.url as String)
           .range((page - 1) * limit, page * limit - 1);
-      if (response == null) {
-        return Left(DataFailure("Failed to fetch comments"));
-      }
       List<CommentModel> comments = (response as List)
           .map((commentJson) => CommentModel.fromJson(commentJson))
           .toList();
@@ -162,9 +151,6 @@ class SupabaseRepoImpl implements SupabaseRepo {
           .insert({'u_id': userId, 'url': article.url, 'text': text})
           .select()
           .single();
-      if (response == null) {
-        return Left(DataFailure("Failed to add comment"));
-      }
       final comment = CommentModel.fromJson(response);
       return Right(comment);
     } on DataFailure catch (e) {
@@ -184,13 +170,9 @@ class SupabaseRepoImpl implements SupabaseRepo {
           .eq('url', article.url as String)
           .count(CountOption.exact)
           .then((response) {
-            if (response == null) {
-              return Left(DataFailure("Failed to fetch comments count"));
-            } else {
-              final count = response.count ?? 0;
-              return Right(count);
-            }
-          });
+            final count = response.count ?? 0;
+            return Right(count);
+                    });
     } on DataFailure catch (e) {
       return Left(DataFailure.fromException(e.message));
     } catch (e) {

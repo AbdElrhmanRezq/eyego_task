@@ -11,7 +11,7 @@ class ProfileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: height * 0.45,
       child: Stack(
         fit: StackFit.expand,

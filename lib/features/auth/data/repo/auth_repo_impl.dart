@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:eyego_task/core/errors/failures.dart';
 import 'package:eyego_task/core/utils/service_locator.dart';
 import 'package:eyego_task/features/auth/data/repo/auth_repo.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 // class AuthRepoImpl implements AuthRepo {

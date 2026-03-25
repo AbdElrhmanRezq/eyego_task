@@ -6,7 +6,6 @@ import 'package:eyego_task/features/home/data/repo/news_repo_impl.dart';
 import 'package:eyego_task/features/home/data/repo/supabase_repo.dart';
 import 'package:eyego_task/features/home/data/repo/supabase_repo_impl.dart';
 import 'package:eyego_task/features/profile/data/repo/images_repo_impl.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

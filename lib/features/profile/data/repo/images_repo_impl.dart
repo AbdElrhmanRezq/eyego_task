@@ -17,10 +17,10 @@ class ImagesRepoImpl implements ImagesRepo {
       print(type);
     } on PostgrestException catch (e) {
       print('PostgrestException: ${e.message}');
-      throw e;
+      rethrow;
     } catch (e) {
       print('Unknown error: $e');
-      throw e;
+      rethrow;
     }
   }
 
@@ -53,10 +53,10 @@ class ImagesRepoImpl implements ImagesRepo {
       return supabase.storage.from(storagePath).getPublicUrl(imagePath);
     } on PostgrestException catch (e) {
       print('PostgrestException: ${e.message}');
-      throw e;
+      rethrow;
     } catch (e) {
       print('Unknown error: $e');
-      throw e;
+      rethrow;
     }
   }
 }

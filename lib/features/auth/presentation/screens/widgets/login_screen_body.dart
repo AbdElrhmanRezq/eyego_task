@@ -1,8 +1,6 @@
 import 'package:eyego_task/consts.dart';
 import 'package:eyego_task/core/utils/app_router.dart';
-import 'package:eyego_task/core/utils/assets.dart';
 import 'package:eyego_task/core/utils/functions/empty_validator.dart';
-import 'package:eyego_task/core/utils/styles.dart';
 import 'package:eyego_task/core/widgets/app_button.dart';
 import 'package:eyego_task/features/auth/presentation/cubit/auth_cubit/auth_cubit.dart';
 import 'package:eyego_task/features/auth/presentation/screens/widgets/text_field.dart';
@@ -18,7 +16,7 @@ class LoginScreenBody extends StatefulWidget {
 }
 
 class _LoginScreenBodyState extends State<LoginScreenBody> {
-  GlobalKey<FormState> _key = GlobalKey<FormState>();
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();

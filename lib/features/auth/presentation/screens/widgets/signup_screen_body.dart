@@ -1,6 +1,4 @@
 import 'package:eyego_task/consts.dart';
-import 'package:eyego_task/core/utils/app_router.dart';
-import 'package:eyego_task/core/utils/assets.dart';
 import 'package:eyego_task/core/utils/functions/empty_validator.dart';
 import 'package:eyego_task/core/utils/styles.dart';
 import 'package:eyego_task/core/widgets/app_button.dart';
@@ -8,7 +6,6 @@ import 'package:eyego_task/features/auth/presentation/cubit/auth_cubit/auth_cubi
 import 'package:eyego_task/features/auth/presentation/screens/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 GlobalKey<FormState> _key = GlobalKey<FormState>();
 

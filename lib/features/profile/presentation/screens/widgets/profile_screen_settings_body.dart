@@ -1,6 +1,4 @@
-import 'package:eyego_task/consts.dart';
 import 'package:eyego_task/core/utils/app_router.dart';
-import 'package:eyego_task/core/utils/styles.dart';
 import 'package:eyego_task/features/auth/presentation/cubit/auth_cubit/auth_cubit.dart';
 import 'package:eyego_task/features/profile/presentation/cubit/user_data_cubit/user_data_cubit.dart';
 import 'package:eyego_task/features/profile/presentation/cubit/user_images_cubit/user_images_cubit.dart';
@@ -64,9 +62,11 @@ class ProfileScreenSettingsBody extends StatelessWidget {
           ),
           SettingsScreenTile(
             height: height,
-            title: 'Change Profile Name',
-            icon: Icons.edit,
-            onTap: () {},
+            title: 'Statistics',
+            icon: Icons.rate_review,
+            onTap: () {
+              GoRouter.of(context).push(AppRouter.kStats);
+            },
           ),
           SettingsScreenTile(
             height: height,

@@ -3,10 +3,8 @@ import 'package:eyego_task/core/utils/app_router.dart';
 import 'package:eyego_task/core/utils/functions/url_launcher.dart';
 import 'package:eyego_task/core/utils/styles.dart';
 import 'package:eyego_task/features/home/data/models/article_model.dart';
-import 'package:eyego_task/features/home/presentation/cubit/article_cubit/article_cubit.dart';
 import 'package:eyego_task/features/home/presentation/screens/widgets/article_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class Article extends StatelessWidget {

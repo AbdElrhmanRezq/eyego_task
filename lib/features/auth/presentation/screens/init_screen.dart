@@ -1,7 +1,6 @@
 import 'package:eyego_task/core/utils/service_locator.dart';
 import 'package:eyego_task/features/auth/presentation/screens/widgets/init_screen_body.dart';
 import 'package:eyego_task/features/home/presentation/screens/home_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

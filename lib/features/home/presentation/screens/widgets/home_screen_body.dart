@@ -1,9 +1,6 @@
 import 'package:eyego_task/consts.dart';
 import 'package:eyego_task/core/utils/lists.dart';
-import 'package:eyego_task/core/utils/styles.dart';
-import 'package:eyego_task/features/home/data/models/article_model.dart';
 import 'package:eyego_task/features/home/presentation/cubit/news_cubit/news_cubit.dart';
-import 'package:eyego_task/features/home/presentation/screens/widgets/article_image.dart';
 import 'package:eyego_task/features/home/presentation/screens/widgets/explore_bar.dart';
 import 'package:eyego_task/features/home/presentation/screens/widgets/filter_row.dart';
 import 'package:eyego_task/features/home/presentation/screens/widgets/news_list.dart';

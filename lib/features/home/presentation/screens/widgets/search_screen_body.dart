@@ -45,7 +45,9 @@ class _SearchScreenBodyState extends State<SearchScreenBody> {
             child: CustomTextFormField(
               hintText: "Search",
               icon: Icons.search,
-              validator: (value) {},
+              validator: (value) {
+                return null;
+              },
               controller: searchController,
               onChanged: (value) {
                 (context).read<SearchCubit>().fetchSearchedNews(text: value);

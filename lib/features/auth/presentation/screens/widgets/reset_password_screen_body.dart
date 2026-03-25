@@ -1,5 +1,4 @@
 import 'package:eyego_task/consts.dart';
-import 'package:eyego_task/core/utils/assets.dart';
 import 'package:eyego_task/core/utils/functions/empty_validator.dart';
 import 'package:eyego_task/core/utils/styles.dart';
 import 'package:eyego_task/core/widgets/app_button.dart';
@@ -17,7 +16,7 @@ class ResetPasswordScreenBody extends StatefulWidget {
 }
 
 class _ResetPasswordScreenBodyState extends State<ResetPasswordScreenBody> {
-  GlobalKey<FormState> _key = GlobalKey<FormState>();
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   final TextEditingController emailController = TextEditingController();
   @override
